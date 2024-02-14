@@ -1,0 +1,178 @@
+/* main.css */
+
+/* Resetting default styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f4f4f4;
+}
+
+/* Utility classes for margin and padding */
+.mt-1 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 1rem; }
+.pt-1 { padding-top: 1rem; }
+.pb-1 { padding-bottom: 1rem; }
+
+/* Sidebar styles */
+.sidebar {
+  width: 200px;
+  background: #333;
+  color: #fff;
+  height: 100vh;
+  padding: 1rem;
+}
+
+.sidebar a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem 0;
+}
+
+/* Header styles */
+.header {
+  background: #eee;
+  padding: 1rem;
+  text-align: right;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Dashboard and other pages layout */
+.dashboard {
+  padding-left: 200px; /* Same as sidebar width */
+}
+
+/* Common styles for summary boxes */
+.summary-box {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem;
+  display: inline-block;
+  width: calc(33% - 2rem); /* Three boxes per row */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.summary-box h2 {
+  margin-bottom: 0.5rem;
+}
+
+/* Styles for the RecentOrders component */
+.recent-orders {
+  background: #fff;
+  border-radius: 8px;
+  margin: 1rem;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Styles for the MonthlySales component */
+.monthly-sales {
+  background: #fff;
+  border-radius: 8px;
+  margin: 1rem;
+  padding: 1rem;
+  display: inline-block;
+  width: calc(50% - 2rem); /* Two boxes per row */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Styles for the MonthlySpend component */
+.monthly-spend {
+  background: #fff;
+  border-radius: 8px;
+  margin: 1rem;
+  padding: 1rem;
+  display: inline-block;
+  width: calc(50% - 2rem); /* Two boxes per row */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Styles for the PrepList component */
+.prep-list {
+  background: #fff;
+  border-radius: 8px;
+  margin: 1rem;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Reusable button styles */
+button {
+  display: inline-block;
+  background: #5cb85c;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  margin-top: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Input field styles */
+input[type='text'] {
+  padding: 0.5rem;
+  border: #ddd 1px solid;
+  border-radius: 5px;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+/* Dropdown styles */
+select {
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-right: 0.5rem;
+}
+
+/* Table styles for orders, etc. */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+table th,
+table td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f4f4f4;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+  }
+
+  .dashboard {
+    padding-left: 0;
+  }
+  
+    .summary-box {
+      width: 100%;
+    }
+  
+    .monthly-sales,
+    .monthly-spend {
+      width: 100%;
+    }
+  }

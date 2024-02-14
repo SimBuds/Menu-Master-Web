@@ -1,0 +1,13 @@
+/* Dashboard.css */
+
+.dashboard {
+    padding-left: 250px; /* Same as sidebar width */
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard {
+      padding: 10px;
+      margin: 5px;
+    }
+  }
+  
