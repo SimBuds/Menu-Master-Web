@@ -1,23 +1,25 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import '../assets/styles/sidebar.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './Sidebar.css'; // Importing custom CSS
 
 function Sidebar() {
   return (
-    <nav className="sidebar">
-      <ul className="sidebar-nav">
-        <li className="nav-item">
-          <NavLink to="/" activeClassName="active" exact>
+    <nav className="navbar navbar-light bg-light flex-column vh-100 justify-content-center">
+      <div className="navbar-brand mb-5">Menu Master</div>
+      <ul className="navbar-nav flex-column align-items-center">
+        <li className="nav-item mb-3">
+          <NavLink to="/" activeClassName="active" exact className="nav-link">
             Dashboard
           </NavLink>
         </li>
-        <li className="nav-item">
-          <NavLink to="/inventory" activeClassName="active">
+        <li className="nav-item mb-3">
+          <NavLink to="/inventory" activeClassName="active" className="nav-link">
             Inventory
           </NavLink>
         </li>
-        <li className="nav-item">
-          <NavLink to="/menu" activeClassName="active">
+        <li className="nav-item mb-3">
+          <NavLink to="/menu" activeClassName="active" className="nav-link">
             Menu
           </NavLink>
         </li>

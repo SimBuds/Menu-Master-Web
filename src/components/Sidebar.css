@@ -1,0 +1,11 @@
+.nav-link:hover {
+    background-color: orange;
+  }
+  
+  .nav-item {
+    width: 100%;
+  }
+  
+  .nav-link {
+    text-align: center;
+  }
