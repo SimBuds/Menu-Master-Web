@@ -1,0 +1,58 @@
+/* Dashboard.css */
+
+.dashboard {
+    background-color: #f8f9fa; /* Light gray background */
+    min-height: 100vh; /* Full height */
+    padding: 2rem; /* Spacing around the dashboard */
+  }
+  
+  .summary-section, .sales-spend-section {
+    display: flex;
+    justify-content: space-between; /* Space out cards */
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  }
+  
+  .summary-card, .sales-spend-card {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+    padding: 1.5rem;
+    flex-basis: calc(33.333% - 2rem); /* Adjust the width minus margin */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute space vertically */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .summary-card, .sales-spend-card {
+      flex-basis: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+  
+  /* Additional styles for the progress circle within the sales-spend-card */
+  .progress-circle {
+    width: 100px; /* Adjust size as needed */
+    height: 100px;
+    margin: 1rem auto;
+  }
+  
+  /* Style for the search bar and table */
+  .search-product {
+    margin-bottom: 1rem;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+  }
+  
+  .table {
+    margin-top: 1rem;
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+  }
+  
+  .table th, .table td {
+    background-color: #fff;
+    border-top: none;
+  }

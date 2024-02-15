@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import InputField from '../components/common/InputField';
-import Button from '../components/common/Button';
+import { Card, ListGroup, ListGroupItem, Button, InputGroup, FormControl } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './PrepList.css'; // Importing custom CSS
+import { BsSearch, BsCalendar, BsThreeDotsVertical } from 'react-icons/bs';
+import '../assets/css/PrepList.css';
 
 function PrepList() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -24,25 +24,46 @@ function PrepList() {
   );
 
   return (
-    <div className="col bg-light vh-100 pt-3">
-      <InputField 
-        className="form-control mb-3"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-      />
-      <div className="list-group">
-        {filteredItems.map((item, index) => (
-          <div className="list-group-item mb-3" key={index}>
-            <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1">{item.name}</h5>
-              <small>{item.quantity}</small>
-            </div>
-            <p className="mb-1">{item.role}</p>
-          </div>
-        ))}
-      </div>
-      <Button className="btn btn-primary mt-3" text="See All" onClick={() => {/* See all functionality */}} />
+    <div className="container mt-3">
+      <InputGroup className="mb-3 search-bar">
+        <InputGroup.Text className="search-icon">
+          <BsSearch />
+        </InputGroup.Text>
+        <FormControl
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="rounded-pill"
+        />
+      </InputGroup>
+
+      <Card className="prep-list-card shadow-sm">
+        <Card.Header as="h5" className="prep-header d-flex justify-content-between align-items-center">
+          Prep <BsCalendar />
+        </Card.Header>
+        <ListGroup variant="flush">
+          {filteredItems.map((item, index) => (
+            <ListGroupItem key={index} className="d-flex justify-content-between align-items-center">
+              <div className="d-flex align-items-center">
+                <img src={item.image} alt={item.name} className="rounded-circle mr-2 item-image" />
+                <div>
+                  <h6 className="mb-0 item-name">{item.name}</h6>
+                  <small className="text-muted item-role">{item.role}</small>
+                </div>
+              </div>
+              <div className="d-flex align-items-center">
+                <small className="item-quantity">{item.quantity}</small>
+                <BsThreeDotsVertical />
+              </div>
+            </ListGroupItem>
+          ))}
+        </ListGroup>
+        <Card.Footer className="text-center">
+          <Button variant="danger" className="rounded-pill sell-all-btn">
+            Sell All
+          </Button>
+        </Card.Footer>
+      </Card>
     </div>
   );
 }

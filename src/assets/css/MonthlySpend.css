@@ -1,0 +1,33 @@
+/* MonthlySpend.css */
+
+.monthly-spend-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .circle-progress-container {
+    position: relative;
+    display: inline-block;
+    margin-top: 20px;
+  }
+  
+  .circle-progress-bar {
+    transform: rotate(-90deg);
+  }
+  
+  .circle-background,
+  .circle-progress {
+    transition: stroke-dashoffset 0.6s ease 0s;
+  }
+  
+  .percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    font-weight: bold;
+  }

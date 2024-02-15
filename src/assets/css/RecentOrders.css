@@ -1,0 +1,50 @@
+/* RecentOrders.css */
+
+.search-product {
+    margin-bottom: 1rem;
+    border-radius: 20px;
+    box-shadow: none;
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+  }
+  
+  .table {
+    margin-top: 1rem;
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+  }
+  
+  .table th {
+    background-color: #fff;
+    border-bottom: none;
+  }
+  
+  .table td {
+    background-color: #fff;
+    border-top: none;
+  }
+
+  /* ... other styles ... */
+
+.status {
+    text-align: center;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: white;
+  }
+  
+  .status.delivered {
+    background-color: #28a745; /* Green for delivered */
+  }
+  
+  .status.not-delivered {
+    background-color: #dc3545; /* Red for not delivered */
+  }
+  
+  .filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  
+  /* ... other styles ... */

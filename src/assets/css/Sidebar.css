@@ -1,0 +1,74 @@
+/* Sidebar.css */
+
+.sidebar {
+  background-color: #fff;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-brand {
+  background-color: #f05f40;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.menu-section {
+  padding: 20px 0;
+}
+
+.menu-section-title {
+  padding: 10px 20px;
+  color: #888;
+  text-transform: uppercase;
+  font-size: 0.85em;
+}
+
+.menu-item {
+  color: #555;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.menu-item:hover, .menu-item.active {
+  background-color: #f05f40;
+  color: white;
+  padding-left: 20px; /* Adjust padding to ensure full-width background */
+  margin-left: -20px; /* Adjust margin to align with the sidebar edge */
+  width: calc(100% + 40px); /* Adjust width to cover the full sidebar width */
+}
+
+.menu-item.disabled {
+  color: #ccc;
+}
+
+.menu-icon {
+  margin-right: 10px;
+  font-size: 1.2em; /* Adjust icon size as needed */
+}
+
+/* Adjust the active class styling as needed */
+.active {
+  background-color: #f05f40;
+  color: white;
+}
+
+/* Optional: Add a hover effect for the logout button */
+.menu-item.logout:hover {
+  background-color: #f05f40;
+  color: white;
+}
+
+/* Separator for account section */
+.account-section {
+  margin-top: 20px; /* Add space above the account section */
+  padding-top: 20px;
+  border-top: 1px solid #eee; /* Add a subtle line for separation */
+}

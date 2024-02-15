@@ -1,30 +1,42 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Sidebar.css'; // Importing custom CSS
+import '../assets/css/Sidebar.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTachometerAlt, faBox, faUtensils, faUsers, faTruck, faBook, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 function Sidebar() {
   return (
-    <nav className="navbar navbar-light bg-light flex-column justify-content-center">
-      <div className="navbar-brand mb-5">Menu Master</div>
-      <ul className="navbar-nav flex-column align-items-center">
-        <li className="nav-item mb-3">
-          <NavLink to="/" activeClassName="active" exact className="nav-link">
-            Dashboard
-          </NavLink>
-        </li>
-        <li className="nav-item mb-3">
-          <NavLink to="/inventory" activeClassName="active" className="nav-link">
-            Inventory
-          </NavLink>
-        </li>
-        <li className="nav-item mb-3">
-          <NavLink to="/menu" activeClassName="active" className="nav-link">
-            Menu
-          </NavLink>
-        </li>
-        {/* ... other nav items ... */}
-      </ul>
+    <nav className="sidebar">
+      <div className="sidebar-brand">MENU MASTER</div>
+      <div className="menu-section">
+        <p className="menu-section-title">MAIN MENU</p>
+        <NavLink to="/" exact className="menu-item" activeClassName="active">
+          <FontAwesomeIcon icon={faTachometerAlt} className="menu-icon" /> Dashboard
+        </NavLink>
+        <NavLink to="/inventory" className="menu-item" activeClassName="active">
+          <FontAwesomeIcon icon={faBox} className="menu-icon" /> Inventory
+        </NavLink>
+        <NavLink to="/menu" className="menu-item" activeClassName="active">
+          <FontAwesomeIcon icon={faUtensils} className="menu-icon" /> Menu
+        </NavLink>
+        <NavLink to="/users" className="menu-item" activeClassName="active">
+          <FontAwesomeIcon icon={faUsers} className="menu-icon" /> Users
+        </NavLink>
+        <NavLink to="/suppliers" className="menu-item" activeClassName="active">
+          <FontAwesomeIcon icon={faTruck} className="menu-icon" /> Suppliers
+        </NavLink>
+        <NavLink to="/recipes" className="menu-item" activeClassName="active">
+          <FontAwesomeIcon icon={faBook} className="menu-icon" /> Recipes
+        </NavLink>
+      </div>
+      <div className="menu-section account-section">
+        <p className="menu-section-title">ACCOUNT</p>
+        <span className="menu-item disabled">James Smith</span>
+        <NavLink to="/logout" className="menu-item" activeClassName="active">
+          <FontAwesomeIcon icon={faSignOutAlt} className="menu-icon" /> Logout
+        </NavLink>
+      </div>
     </nav>
   );
 }

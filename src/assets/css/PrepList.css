@@ -1,0 +1,53 @@
+/* PrepList.css */
+
+.container {
+  max-width: 414px; /* Match the width of the design */
+  margin: auto;
+}
+
+.search-bar .input-group-text {
+  background-color: transparent;
+  border: none;
+}
+
+.search-bar .form-control {
+  border: none;
+  box-shadow: none; /* Remove default Bootstrap box-shadow */
+}
+
+.prep-list-card {
+  border-radius: 20px; /* Rounded corners for the card */
+  overflow: hidden; /* Ensures that child elements do not break the rounded corners */
+}
+
+.prep-header {
+  background-color: #f8f9fa; /* Light grey background */
+  font-size: 1.25rem; /* Adjust font size as needed */
+}
+
+.item-image {
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+  object-fit: cover; /* Ensure the images cover the area */
+}
+
+.item-name {
+  font-weight: bold;
+}
+
+.item-role {
+  font-size: 0.8rem; /* Adjust font size as needed */
+}
+
+.item-quantity {
+  margin-right: 10px; /* Space before the vertical dots icon */
+}
+
+.sell-all-btn {
+  background-color: #f05f40; /* Adjust the color to match the design */
+  border: none;
+  width: 80%; /* Adjust width as needed */
+  margin: auto; /* Center the button */
+}
+
+/* Add any additional styling as needed to match your design */

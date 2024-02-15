@@ -1,0 +1,33 @@
+/* SummaryCard.css */
+
+.summary-card {
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    background-color: #fff; /* Assuming white background */
+  }
+  
+  .value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .percentage {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+  
+  .increase {
+    color: #4CAF50;
+  }
+  
+  .decrease {
+    color: #F44336;
+  }
