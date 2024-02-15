@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import InputField from '../components/common/InputField';
 import Button from '../components/common/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './PrepList.css'; // Importing custom CSS
 
 function PrepList() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -23,7 +24,7 @@ function PrepList() {
   );
 
   return (
-    <div className="col">
+    <div className="col bg-light vh-100 pt-3">
       <InputField 
         className="form-control mb-3"
         placeholder="Search..."
@@ -32,7 +33,7 @@ function PrepList() {
       />
       <div className="list-group">
         {filteredItems.map((item, index) => (
-          <div className="list-group-item" key={index}>
+          <div className="list-group-item mb-3" key={index}>
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">{item.name}</h5>
               <small>{item.quantity}</small>

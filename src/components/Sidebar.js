@@ -5,7 +5,7 @@ import './Sidebar.css'; // Importing custom CSS
 
 function Sidebar() {
   return (
-    <nav className="navbar navbar-light bg-light flex-column vh-100 justify-content-center">
+    <nav className="navbar navbar-light bg-light flex-column justify-content-center">
       <div className="navbar-brand mb-5">Menu Master</div>
       <ul className="navbar-nav flex-column align-items-center">
         <li className="nav-item mb-3">
