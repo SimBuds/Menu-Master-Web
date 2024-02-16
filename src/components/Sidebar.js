@@ -18,17 +18,17 @@ function Sidebar({ onLogout }) {
         <NavLink to="/inventory" className="menu-item" activeClassName="active">
           <FontAwesomeIcon icon={faBox} className="menu-icon" /> Inventory
         </NavLink>
-        <NavLink to="/menu" className="menu-item" activeClassName="active">
-          <FontAwesomeIcon icon={faUtensils} className="menu-icon" /> Menu
-        </NavLink>
         <NavLink to="/users" className="menu-item" activeClassName="active">
           <FontAwesomeIcon icon={faUsers} className="menu-icon" /> Users
         </NavLink>
-        <NavLink to="/suppliers" className="menu-item" activeClassName="active">
-          <FontAwesomeIcon icon={faTruck} className="menu-icon" /> Suppliers
+        <NavLink to="/menu" className="menu-item" activeClassName="active">
+          <FontAwesomeIcon icon={faUtensils} className="menu-icon" /> Menu
         </NavLink>
         <NavLink to="/recipes" className="menu-item" activeClassName="active">
           <FontAwesomeIcon icon={faBook} className="menu-icon" /> Recipes
+        </NavLink>
+        <NavLink to="/suppliers" className="menu-item" activeClassName="active">
+          <FontAwesomeIcon icon={faTruck} className="menu-icon" /> Suppliers
         </NavLink>
       </div>
       <div className="menu-section account-section">

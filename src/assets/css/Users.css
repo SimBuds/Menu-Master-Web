@@ -1,0 +1,45 @@
+/* Users.css */
+
+.users-table-container {
+    background-color: #fff; /* Assuming a white background */
+    border-radius: 8px; /* Rounded corners for the container */
+    padding: 20px; /* Padding around the content */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* A subtle shadow for depth */
+    margin-top: 20px; /* Space from the top of the viewport */
+  }
+  
+  .users-table-container .form-control {
+    border-radius: 20px; /* Rounded borders for the input */
+    border: 1px solid #ced4da; /* Bootstrap default border color */
+  }
+  
+  .users-table-container .btn-outline-success {
+    border-radius: 20px; /* Rounded borders for the button */
+  }
+  
+  .users-table-container .table {
+    margin-top: 20px; /* Space between search bar and table */
+  }
+  
+  .users-table-container .table thead th {
+    background-color: #f8f9fa; /* Light grey background */
+    border-top: none; /* Remove the top border */
+  }
+  
+  .users-table-container .table tbody tr {
+    border-bottom: 1px solid #dee2e6; /* Bootstrap default border color */
+  }
+  
+  .users-table-container .status-active {
+    color: #28a745; /* Bootstrap success color */
+  }
+  
+  .users-table-container .status-inactive {
+    color: #dc3545; /* Bootstrap danger color */
+  }
+  
+  .users-table-container .btn-outline-secondary {
+    margin-right: 8px; /* Space between the Edit and Delete buttons */
+  }
+  
+  /* Additional custom styles can be added as needed */

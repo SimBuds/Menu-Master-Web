@@ -2,7 +2,7 @@
 
 .sidebar {
   background-color: #fff; /* White background */
-  width: 250px; /* Adjust width as needed */
+  max-width: 350px;  /* Adjust width as needed */
   display: flex;
   flex-direction: column;
   height: 100vh; /* Full height */

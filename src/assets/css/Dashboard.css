@@ -2,24 +2,9 @@
 
 .dashboard-container {
   display: flex;
-  justify-content: space-between; /* Aligns the sidebar, dashboard, and right-side panel */
+  flex-direction: column; /* Stack content vertically */
   padding: 2rem;
-}
-
-.sidebar {
-  /* Adjust the width, padding, and margin as needed */
-  width: 200px; /* Example width */
-  margin-right: 2rem;
-}
-
-.main-content {
-  flex-grow: 1;
-  margin-right: 2rem; /* Space between main content and right-side panel */
-}
-
-.right-side-panel {
-  /* Adjust the width, padding, and margin as needed */
-  width: 200px; /* Example width */
+  background-color: #f8f9fa; /* Light gray background as seen in the image */
 }
 
 .summary-section {
@@ -33,42 +18,80 @@
 .summary-card {
   flex: 1;
   padding: 1rem;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; /* Adjusted to match the image */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Softer shadow as seen in the image */
   min-width: 250px;
-  max-width: calc(33.333% - 2rem);
+  max-width: calc(33.333% - 1rem); /* Adjusted to ensure proper gap */
+  background-color: #ffffff; /* White cards */
+  color: #333333; /* Adjust text color as needed */
+  margin-bottom: 1rem;
+  /* Added styles for the summary card content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  height: 120px; /* Fixed height as seen in the image */
+}
+
+.summary-card .value {
+  font-size: 2rem; /* Larger font size for the value */
+  font-weight: bold; /* Make the value bold */
+  color: #e74c3c; /* Red color for negative values */
+}
+
+.summary-card .percentage {
+  /* Style for the percentage indicator */
+  color: #2ecc71; /* Green color for positive values */
+  margin-top: .5rem; /* Space between value and percentage */
+}
+
+/* Search input styling as seen in the image */
+.search-input {
+  border: none;
+  border-radius: 20px;
+  padding: 0.75rem 1rem;
   margin-bottom: 1rem;
 }
 
-.recent-orders-section {
+.recent-orders-section, .sales-spend-section {
+  /* Shared styles for recent orders and sales/spend sections */
   background-color: #fff;
   padding: 1rem;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
 }
 
 .table {
   width: 100%;
   margin-top: 1rem;
-  border-collapse: separate;
-  border-spacing: 0 1rem;
+  border-collapse: collapse;
+  /* Removed separate border spacing */
 }
 
-.sales-spend-section {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
+/* Styles for the table rows and cells */
+.table-row {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem; /* Space between rows */
+  border-radius: 10px; /* Rounded corners for rows */
+}
+
+.table-cell {
+  padding: 0.75rem 1rem; /* Padding for cells */
+  /* Add any additional styling for cells as needed */
 }
 
 .sales-spend-card {
+  /* Styles for the sales and spend cards */
   flex: 1;
   padding: 1rem;
   border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   min-width: 250px;
-  max-width: calc(33.333% - 2rem);
+  max-width: calc(50% - 1rem); /* Take up half the space, minus the gap */
+  background-color: #ffffff; /* White cards */
+  color: #333333; /* Text color */
   margin-bottom: 1rem;
 }
 

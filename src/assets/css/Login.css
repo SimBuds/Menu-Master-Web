@@ -1,10 +1,4 @@
-/* src/assets/css/Login.css */
-
-body, html {
-  height: 100%;
-  margin: 0;
-  font-family: 'Arial', sans-serif;
-}
+/* Login.css */
 
 .login-page {
   background-color: #f05f40; /* Adjust the color to match the exact orange shade */
@@ -12,13 +6,14 @@ body, html {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  padding: 20px;
 }
 
-h1 {
-  font-size: 3rem; /* Adjust size as needed */
-  color: #fff; /* Adjust color to match the design */
-  margin-bottom: 1rem;
+.menu-master-header {
+  position: absolute;
+  top: 10%; /* Adjust as necessary to match the image */
+  left: 10%; /* Adjust as necessary to match the image */
+  color: #fff; /* White color text */
+  font-size: 2rem; /* Adjust size as needed */
 }
 
 .login-container {
@@ -26,53 +21,62 @@ h1 {
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Adjust width as needed */
-  max-width: 400px; /* Adjust max-width as needed */
+  width: 350px; /* Adjust as needed to match the image */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the items horizontally */
 }
 
 .login-header {
-  font-size: 2rem;
+  font-size: 1.5rem; /* Adjust to match the image */
+  color: #333; /* Dark text color */
   margin-bottom: 2rem;
-  text-align: center;
 }
 
 .form-label {
   display: block;
   margin-bottom: .5rem;
+  color: #333; /* Dark text color */
 }
 
 .form-control {
   display: block;
   width: 100%;
-  padding: .375rem .75rem;
+  padding: .5rem .75rem; /* Slightly more padding to match the image */
   font-size: 1rem;
   line-height: 1.5;
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: .25rem;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  border: 2px solid #ced4da; /* Thicker border as per image */
+  border-radius: .5rem; /* Larger border-radius to match the image */
+  margin-bottom: 1rem; /* Add margin to separate the inputs */
+}
+
+.form-check {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .form-check-input {
   margin-right: .5rem;
 }
 
-.login-btn {
-  background-color: #f05f40; /* Adjust the color to match the exact orange shade */
-  color: #fff;
-  border: none;
-  border-radius: .25rem;
-  padding: .5rem;
-  margin-top: 1rem;
+.form-check-label {
+  color: #333;
 }
 
-.forgot-password-link {
-  color: #6c757d; /* Adjust as needed */
-  background: none;
+.login-btn {
+  background-color: #f05f40;
+  color: #fff;
   border: none;
-  padding: 0;
+  border-radius: .5rem;
+  padding: .5rem 1rem; 
+  width: 100%;
+  margin-top: 1rem;
+  cursor: pointer;
 }
 
 .login-footer {
@@ -81,6 +85,7 @@ h1 {
 }
 
 .login-footer a {
+  color: #f05f40;
   text-decoration: none;
 }
 
@@ -95,4 +100,3 @@ h1 {
   max-width: 300px; /* Adjust as needed */
 }
 
-/* Add additional styles for responsive design as needed */
