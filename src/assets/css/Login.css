@@ -1,0 +1,49 @@
+/* Base styles for the login page */
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f05f40;
+}
+
+.login-container {
+  background: #FFFFFF;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px; /* This can be adjusted for larger screens */
+}
+
+.login-header {
+  margin-bottom: 1rem;
+  font-size: calc(1rem + 0.5vw); /* Responsive font size */
+  color: #333333;
+  text-align: center;
+}
+
+/* Form and input styling */
+.form-label, .form-control, .form-check-label, .forgot-password-link, .sign-up-link, .login-btn {
+  /* Styles unchanged, included for completeness */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .login-container {
+    width: 90%; /* More fluid on smaller screens */
+    padding: 1rem;
+  }
+
+  .login-header, .form-control, .login-btn {
+    font-size: calc(1rem + 1vw); /* Slightly larger font size for readability */
+  }
+
+  /* Increase padding and margins for touch interaction */
+  .form-control, .login-btn {
+    padding: .5rem 1rem; /* Larger padding for easier touch */
+  }
+
+  .forgot-password-link, .sign-up-link {
+    margin-top: 1rem; /* Additional spacing */
+  }
+}

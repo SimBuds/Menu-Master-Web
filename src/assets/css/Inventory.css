@@ -1,0 +1,76 @@
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  
+  .form-group {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-bottom: 1rem; /* Space between rows */
+  }
+
+  /* Custom styles for the select element */
+.custom-select {
+    display: inline-block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem 1.75rem .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    vertical-align: middle;
+    background: #fff url('data:image/svg+xml;charset=US-ASCII,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill="%23333" d="M6.5 7.5l3.5 3.5 3.5-3.5z"/></svg>') no-repeat right .75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.custom-select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
+}
+
+/* Style focus state of custom-select for accessibility */
+.custom-select:focus:not(:focus-visible) {
+    box-shadow: none;
+}
+
+/* Center the modal footer content */
+.modal-footer {
+    display: flex;
+    justify-content: center; /* Aligns items horizontally to the center */
+    align-items: center; /* Aligns items vertically to the center */
+  }
+  
+  /* Style for the Save button */
+  .btn-save {
+    background-color: #f05f40; /* Orange color */
+    color: white; /* Text color */
+    border: none; /* Removes the border */
+  }
+  
+  /* Style for the Cancel button, assuming you want it to be the same as the Save button */
+  .btn-cancel {
+    color: white; /* Text color */
+    border: none; /* Removes the border */
+  }
+  
+  /* Hover effect for both buttons */
+  .btn-save:hover,
+  .btn-cancel:hover {
+    background-color: darken(#f05f40, 10%); /* Darkens the button color on hover */
+  }
+  
+  @media (min-width: 768px) { /* Adjust this breakpoint as needed */
+    .col-md-6 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+  }
