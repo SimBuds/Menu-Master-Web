@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Sidebar from './components/Sidebar';
 import PrepList from './components/PrepList';
-import Inventory from './pages/Inventory'; // Import other pages you want to navigate to
+import Inventory from './pages/Inventory';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
