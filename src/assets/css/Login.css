@@ -1,49 +1,98 @@
-/* Base styles for the login page */
+/* src/assets/css/Login.css */
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+}
+
 .login-page {
+  background-color: #f05f40; /* Adjust the color to match the exact orange shade */
   display: flex;
-  align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background-color: #f05f40;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 3rem; /* Adjust size as needed */
+  color: #fff; /* Adjust color to match the design */
+  margin-bottom: 1rem;
 }
 
 .login-container {
-  background: #FFFFFF;
+  background: #fff;
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 300px; /* This can be adjusted for larger screens */
+  width: 100%; /* Adjust width as needed */
+  max-width: 400px; /* Adjust max-width as needed */
 }
 
 .login-header {
-  margin-bottom: 1rem;
-  font-size: calc(1rem + 0.5vw); /* Responsive font size */
-  color: #333333;
+  font-size: 2rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
-/* Form and input styling */
-.form-label, .form-control, .form-check-label, .forgot-password-link, .sign-up-link, .login-btn {
-  /* Styles unchanged, included for completeness */
+.form-label {
+  display: block;
+  margin-bottom: .5rem;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .login-container {
-    width: 90%; /* More fluid on smaller screens */
-    padding: 1rem;
-  }
-
-  .login-header, .form-control, .login-btn {
-    font-size: calc(1rem + 1vw); /* Slightly larger font size for readability */
-  }
-
-  /* Increase padding and margins for touch interaction */
-  .form-control, .login-btn {
-    padding: .5rem 1rem; /* Larger padding for easier touch */
-  }
-
-  .forgot-password-link, .sign-up-link {
-    margin-top: 1rem; /* Additional spacing */
-  }
+.form-control {
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+
+.form-check-input {
+  margin-right: .5rem;
+}
+
+.login-btn {
+  background-color: #f05f40; /* Adjust the color to match the exact orange shade */
+  color: #fff;
+  border: none;
+  border-radius: .25rem;
+  padding: .5rem;
+  margin-top: 1rem;
+}
+
+.forgot-password-link {
+  color: #6c757d; /* Adjust as needed */
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.login-footer a {
+  text-decoration: none;
+}
+
+.login-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-image img {
+  width: 100%; /* Adjust as needed */
+  max-width: 300px; /* Adjust as needed */
+}
+
+/* Add additional styles for responsive design as needed */

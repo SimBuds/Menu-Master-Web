@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import chefmanImage from '../assets/images/chefman.png';
 import '../assets/css/Login.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function LoginPage({ onLogin }) {
   // Define temporary credentials as variables
@@ -28,48 +30,56 @@ function LoginPage({ onLogin }) {
   };
 
   return (
-    <div className="login-page">
-      <div className="text-center mb-4">
-        <h1>Menu Master</h1> {/* Ensure "Menu Master" is prominently displayed */}
-      </div>
-      <div className="login-image">
-        <img src={chefmanImage} alt="Login Visual" />
-      </div>
-      
-      <div className="login-container">
-        <div className="login-header">Welcome back.</div>
-        <form onSubmit={handleLogin}>
-          <div className="mb-3">
-            <label htmlFor="username" className="form-label">Username</label>
-            <input
-              type="text"
-              className="form-control"
-              id="username"
-              placeholder="Enter username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+    <div className="login-page d-flex justify-content-center align-items-center">
+      <div className="container">
+        <div className="row">
+          <div className="col-12 col-md-6">
+            {/* Left side with image and Menu Master text */}
+            <h1 className="text-white text-center text-md-left">Menu Master</h1>
+            <div className="login-image my-4 my-md-0">
+              <img src={chefmanImage} alt="Login Visual" className="img-fluid" />
+            </div>
           </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+          <div className="col-12 col-md-6">
+            {/* Right side with login form */}
+            <div className="login-container bg-white p-4 shadow rounded">
+              <h2 className="login-header mb-4">Welcome back.</h2>
+              <form onSubmit={handleLogin}>
+                <div className="mb-3">
+                  <label htmlFor="username" className="form-label">Username</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="username"
+                    placeholder="Enter username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="password" className="form-label">Password</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="password"
+                    placeholder="Enter password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <div className="form-check">
+                    <input type="checkbox" className="form-check-input" id="keepSignedIn" />
+                    <label className="form-check-label" htmlFor="keepSignedIn">Keep me signed in</label>
+                  </div>
+                  <button className="forgot-password-link btn btn-link" type="button" onClick={handleForgotPassword}>
+                    Forgot your password?
+                  </button>
+                </div>
+                <button type="submit" className="login-btn btn btn-primary w-100">Sign in</button>
+              </form>
+            </div>
           </div>
-          <div className="form-check mb-3">
-            <input type="checkbox" className="form-check-input" id="keepSignedIn" />
-            <label className="form-check-label" htmlFor="keepSignedIn">Keep me signed in</label>
-          </div>
-          <button className="forgot-password-link btn btn-link" type="button" onClick={handleForgotPassword}>Forgot your password?</button>
-          <button type="submit" className="login-btn btn btn-primary w-100">Sign in</button>
-        </form>
-        <div className="login-footer mt-3">
-          <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
         </div>
       </div>
     </div>

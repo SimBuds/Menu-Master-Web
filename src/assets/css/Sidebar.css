@@ -72,3 +72,25 @@
   padding-top: 20px;
   border-top: 1px solid #eee; /* Subtle line for separation */
 }
+
+/* Style the logout button */
+.logout-button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  color: #333; /* Adjust the color to match your design */
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #f05f40; /* Adjust the hover color to match your design */
+}
+
+/* Adjust the FontAwesome icon if needed */
+.fa-sign-out-alt {
+  margin-right: 0.5rem;
+}

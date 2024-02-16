@@ -5,7 +5,8 @@ import '../assets/css/Sidebar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faBox, faUtensils, faUsers, faTruck, faBook, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
-function Sidebar() {
+function Sidebar({ onLogout }) {
+
   return (
     <nav className="sidebar d-flex flex-column">
       <div className="sidebar-brand p-3 mb-3">MENU MASTER</div>
@@ -33,9 +34,9 @@ function Sidebar() {
       <div className="menu-section account-section">
         <p className="menu-section-title px-3 mb-2">ACCOUNT</p>
         <span className="menu-item disabled p-3">Casey Hsu</span>
-        <NavLink to="/logout" className="menu-item p-3" activeClassName="active">
+        <button className="logout-button" onClick={onLogout}>
           <FontAwesomeIcon icon={faSignOutAlt} className="menu-icon" /> Logout
-        </NavLink>
+        </button>
       </div>
     </nav>
   );
