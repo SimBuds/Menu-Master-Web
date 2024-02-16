@@ -1,50 +1,75 @@
 /* RecentOrders.css */
 
-.search-product {
-    margin-bottom: 1rem;
-    border-radius: 20px;
-    box-shadow: none;
-    border: 1px solid #ddd;
-    padding: 0.5rem 1rem;
-  }
-  
-  .table {
-    margin-top: 1rem;
-    border-collapse: separate;
-    border-spacing: 0 1rem;
-  }
-  
-  .table th {
-    background-color: #fff;
-    border-bottom: none;
-  }
-  
-  .table td {
-    background-color: #fff;
-    border-top: none;
-  }
+/* Use CSS variables for colors for easier maintenance */
+:root {
+  --delivered-green: #28a745;
+  --not-delivered-red: #dc3545;
+  --border-color: #ddd;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
 
-  /* ... other styles ... */
+.search-product {
+  margin-bottom: 1rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px var(--shadow-color); /* Added subtle shadow */
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+}
+
+.table {
+  margin-top: 1rem;
+  border-collapse: separate;
+  border-spacing: 0 1rem;
+}
+
+.table th {
+  background-color: #fff;
+  border-bottom: none;
+  font-weight: normal; /* Adjust font-weight as needed */
+}
+
+.table td {
+  background-color: #fff;
+  border-top: none;
+}
+
+/* ... other styles ... */
 
 .status {
-    text-align: center;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    color: white;
-  }
-  
-  .status.delivered {
-    background-color: #28a745; /* Green for delivered */
-  }
-  
-  .status.not-delivered {
-    background-color: #dc3545; /* Red for not delivered */
-  }
-  
+  text-align: center;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold; /* Make the text bold */
+}
+
+.status.delivered {
+  background-color: var(--delivered-green);
+}
+
+.status.not-delivered {
+  background-color: var(--not-delivered-red);
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+/* ... other styles ... */
+
+/* Add responsive design adjustments if necessary */
+@media (max-width: 768px) {
+  /* Adjust styles for mobile view */
   .filters {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
+    flex-direction: column;
+    align-items: stretch;
   }
-  
-  /* ... other styles ... */
+
+  .search-product {
+    margin-bottom: 0.5rem; /* Adjust spacing for mobile */
+  }
+}
+
+/* Add styles for summary cards and monthly spend components if they are part of this file */

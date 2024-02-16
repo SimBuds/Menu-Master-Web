@@ -7,11 +7,11 @@ import { faTachometerAlt, faBox, faUtensils, faUsers, faTruck, faBook, faSignOut
 
 function Sidebar() {
   return (
-    <nav className="sidebar">
-      <div className="sidebar-brand">MENU MASTER</div>
-      <div className="menu-section">
-        <p className="menu-section-title">MAIN MENU</p>
-        <NavLink to="/" exact className="menu-item" activeClassName="active">
+    <nav className="sidebar d-flex flex-column">
+      <div className="sidebar-brand p-3 mb-3">MENU MASTER</div>
+      <div className="menu-section mb-3">
+        <p className="menu-section-title px-3 mb-2">MAIN MENU</p>
+        <NavLink to="/" exact className="menu-item p-3" activeClassName="active">
           <FontAwesomeIcon icon={faTachometerAlt} className="menu-icon" /> Dashboard
         </NavLink>
         <NavLink to="/inventory" className="menu-item" activeClassName="active">
@@ -31,9 +31,9 @@ function Sidebar() {
         </NavLink>
       </div>
       <div className="menu-section account-section">
-        <p className="menu-section-title">ACCOUNT</p>
-        <span className="menu-item disabled">James Smith</span>
-        <NavLink to="/logout" className="menu-item" activeClassName="active">
+        <p className="menu-section-title px-3 mb-2">ACCOUNT</p>
+        <span className="menu-item disabled p-3">Casey Hsu</span>
+        <NavLink to="/logout" className="menu-item p-3" activeClassName="active">
           <FontAwesomeIcon icon={faSignOutAlt} className="menu-icon" /> Logout
         </NavLink>
       </div>

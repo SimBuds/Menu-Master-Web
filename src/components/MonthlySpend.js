@@ -1,15 +1,15 @@
 import React from 'react';
 import '../assets/css/MonthlySpend.css';
 
-const MonthlySpendCard = ({ percentage }) => {
+const MonthlySpendCard = ({ title, date, percentage }) => {
   const radius = 36; // Radius of the circle
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (percentage / 100) * circumference;
 
   return (
     <div className="monthly-spend-card">
-      <h2>Monthly Spend</h2>
-      <p>Nov 1 - 15, 2023</p>
+      <h2>{title}</h2>
+      <p>{date}</p>
       <div className="circle-progress-container">
         <svg
           className="circle-progress-bar"

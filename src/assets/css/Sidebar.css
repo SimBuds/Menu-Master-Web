@@ -1,16 +1,16 @@
 /* Sidebar.css */
 
 .sidebar {
-  background-color: #fff;
-  width: 250px;
+  background-color: #fff; /* White background */
+  width: 250px; /* Adjust width as needed */
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  height: 100vh; /* Full height */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 .sidebar-brand {
-  background-color: #f05f40;
+  background-color: #f05f40; /* Adjust to match the brand color */
   color: white;
   padding: 20px;
   text-align: center;
@@ -23,13 +23,13 @@
 
 .menu-section-title {
   padding: 10px 20px;
-  color: #888;
+  color: #888; /* Grey text */
   text-transform: uppercase;
   font-size: 0.85em;
 }
 
 .menu-item {
-  color: #555;
+  color: #555; /* Darker grey text */
   padding: 10px 20px;
   display: flex;
   align-items: center;
@@ -38,37 +38,37 @@
 }
 
 .menu-item:hover, .menu-item.active {
-  background-color: #f05f40;
+  background-color: #f05f40; /* Brand color for hover and active */
   color: white;
-  padding-left: 20px; /* Adjust padding to ensure full-width background */
-  margin-left: -20px; /* Adjust margin to align with the sidebar edge */
-  width: calc(100% + 40px); /* Adjust width to cover the full sidebar width */
+  padding-left: 30px; /* Increased padding for hover and active */
+  margin-left: -20px; /* Negative margin to align with the sidebar edge */
+  width: calc(100% + 20px); /* Adjust width to cover the full sidebar width */
 }
 
 .menu-item.disabled {
-  color: #ccc;
+  color: #ccc; /* Light grey text for disabled items */
 }
 
 .menu-icon {
   margin-right: 10px;
-  font-size: 1.2em; /* Adjust icon size as needed */
+  font-size: 1.2em; /* Icon size */
 }
 
 /* Adjust the active class styling as needed */
 .active {
-  background-color: #f05f40;
+  background-color: #f05f40; /* Brand color for active state */
   color: white;
 }
 
 /* Optional: Add a hover effect for the logout button */
 .menu-item.logout:hover {
-  background-color: #f05f40;
+  background-color: #f05f40; /* Brand color for hover state */
   color: white;
 }
 
 /* Separator for account section */
 .account-section {
-  margin-top: 20px; /* Add space above the account section */
+  margin-top: auto; /* Pushes the account section to the bottom */
   padding-top: 20px;
-  border-top: 1px solid #eee; /* Add a subtle line for separation */
+  border-top: 1px solid #eee; /* Subtle line for separation */
 }

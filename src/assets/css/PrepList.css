@@ -1,53 +1,84 @@
 /* PrepList.css */
 
-.container {
-  max-width: 414px; /* Match the width of the design */
+.prep-list-container {
+  max-width: 400px; /* Adjust width as needed */
   margin: auto;
+  padding-top: 20px;
 }
 
-.search-bar .input-group-text {
-  background-color: transparent;
-  border: none;
+.search-bar {
+  position: relative;
+  margin-bottom: 20px;
 }
 
 .search-bar .form-control {
-  border: none;
-  box-shadow: none; /* Remove default Bootstrap box-shadow */
+  border-radius: 30px;
 }
 
 .prep-list-card {
-  border-radius: 20px; /* Rounded corners for the card */
-  overflow: hidden; /* Ensures that child elements do not break the rounded corners */
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .prep-header {
-  background-color: #f8f9fa; /* Light grey background */
-  font-size: 1.25rem; /* Adjust font size as needed */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #fff;
+  border-bottom: none;
 }
 
-.item-image {
-  width: 40px; /* Adjust size as needed */
-  height: 40px; /* Adjust size as needed */
-  object-fit: cover; /* Ensure the images cover the area */
-}
-
-.item-name {
+.header-title {
   font-weight: bold;
 }
 
-.item-role {
-  font-size: 0.8rem; /* Adjust font size as needed */
+.header-date {
+  display: flex;
+  align-items: center;
 }
 
-.item-quantity {
-  margin-right: 10px; /* Space before the vertical dots icon */
+.header-date span {
+  margin-left: 5px;
+}
+
+.prep-item {
+  padding: 15px 20px;
+}
+
+.item-info {
+  display: flex;
+  align-items: center; /* Vertically center align items */
+}
+
+.item-image {
+  width: 50px; /* Adjust to match design */
+  height: 50px; /* Adjust to match design */
+  border-radius: 50%; /* Circular images */
+  object-fit: cover; /* Cover the area without stretching */
+  margin-right: 15px; /* Space between image and text */
+}
+
+.item-name {
+  font-weight: bold; /* If the name should be bold */
+  margin-bottom: 0; /* Remove margin if necessary */
+}
+
+.item-role {
+  font-size: 0.8em; /* Adjust font size as needed */
+  color: #6c757d; /* Bootstrap's default text-muted color */
 }
 
 .sell-all-btn {
-  background-color: #f05f40; /* Adjust the color to match the design */
-  border: none;
-  width: 80%; /* Adjust width as needed */
-  margin: auto; /* Center the button */
+  background-color: #f05f40; /* Adjust to your preferred shade of orange */
+  border-color: #f05f40; /* Match the background or use 'transparent' */
+  color: white;
+  border-radius: 20px; /* Match the design */
+  padding: 10px 25px; /* Adjust padding to match design */
+  width: 100%; /* Full width button */
+  font-size: 1em; /* Adjust font size as needed */
+  margin-top: 15px; /* Space between the last item and the button */
 }
 
-/* Add any additional styling as needed to match your design */
+/* Add any additional styles or overrides as needed */

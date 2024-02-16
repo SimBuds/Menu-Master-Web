@@ -1,58 +1,89 @@
 /* Dashboard.css */
 
-.dashboard {
-    background-color: #f8f9fa; /* Light gray background */
-    min-height: 100vh; /* Full height */
-    padding: 2rem; /* Spacing around the dashboard */
-  }
-  
-  .summary-section, .sales-spend-section {
-    display: flex;
-    justify-content: space-between; /* Space out cards */
-    flex-wrap: wrap; /* Allow wrapping for smaller screens */
-  }
-  
+.dashboard-container {
+  display: flex;
+  justify-content: space-between; /* Aligns the sidebar, dashboard, and right-side panel */
+  padding: 2rem;
+}
+
+.sidebar {
+  /* Adjust the width, padding, and margin as needed */
+  width: 200px; /* Example width */
+  margin-right: 2rem;
+}
+
+.main-content {
+  flex-grow: 1;
+  margin-right: 2rem; /* Space between main content and right-side panel */
+}
+
+.right-side-panel {
+  /* Adjust the width, padding, and margin as needed */
+  width: 200px; /* Example width */
+}
+
+.summary-section {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.summary-card {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 250px;
+  max-width: calc(33.333% - 2rem);
+  margin-bottom: 1rem;
+}
+
+.recent-orders-section {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.table {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: separate;
+  border-spacing: 0 1rem;
+}
+
+.sales-spend-section {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.sales-spend-card {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 250px;
+  max-width: calc(33.333% - 2rem);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
   .summary-card, .sales-spend-card {
-    background-color: #fff;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 1rem;
-    padding: 1.5rem;
-    flex-basis: calc(33.333% - 2rem); /* Adjust the width minus margin */
-    display: flex;
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .dashboard-container {
     flex-direction: column;
-    justify-content: space-between; /* Distribute space vertically */
   }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .summary-card, .sales-spend-card {
-      flex-basis: 100%;
-      margin-bottom: 1rem;
-    }
+
+  .sidebar, .main-content, .right-side-panel {
+    width: 100%;
+    margin-right: 0;
   }
-  
-  /* Additional styles for the progress circle within the sales-spend-card */
-  .progress-circle {
-    width: 100px; /* Adjust size as needed */
-    height: 100px;
-    margin: 1rem auto;
-  }
-  
-  /* Style for the search bar and table */
-  .search-product {
-    margin-bottom: 1rem;
-    border-radius: 20px;
-    padding: 0.5rem 1rem;
-  }
-  
-  .table {
-    margin-top: 1rem;
-    border-collapse: separate;
-    border-spacing: 0 1rem;
-  }
-  
-  .table th, .table td {
-    background-color: #fff;
-    border-top: none;
-  }
+}
