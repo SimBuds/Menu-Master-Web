@@ -46,7 +46,7 @@ function App() {
             </div>
           )}
         </div>
-      </div>c
+      </div>
     </BrowserRouter>
   );
 }

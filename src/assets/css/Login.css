@@ -1,11 +1,23 @@
 /* Login.css */
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
 .login-page {
   background-color: #f05f40; /* Adjust the color to match the exact orange shade */
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  width: 100vw; /* Ensure it takes the full width of the viewport */
+  height: 100vh; /* Ensure it takes the full height of the viewport */
+  overflow: hidden; /* Hide any overflow */
+  margin: 0; /* No margin */
+  padding: 0; /* No padding */
 }
 
 .menu-master-header {
@@ -22,6 +34,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 350px; /* Adjust as needed to match the image */
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center; /* Center the items horizontally */
@@ -100,3 +113,14 @@
   max-width: 300px; /* Adjust as needed */
 }
 
+/* Responsive adjustments for smaller devices */
+@media (max-width: 768px) {
+  .login-container {
+    width: 90%; /* On mobile, make the login container take up more of the screen */
+    padding: 1rem; /* Adjust padding for smaller screens */
+  }
+
+  .login-image img {
+    max-width: 100%; /* On mobile, allow the image to be as wide as the container */
+  }
+}

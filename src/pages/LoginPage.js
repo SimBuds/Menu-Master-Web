@@ -31,9 +31,9 @@ function LoginPage({ onLogin }) {
 
   return (
     <div className="login-page d-flex justify-content-center align-items-center">
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
-          <div className="col-12 col-md-6">
+          <div className="col-md-6">
             {/* Left side with image and Menu Master text */}
             <h1 className="text-white text-center text-md-left">Menu Master</h1>
             <div className="login-image my-4 my-md-0">
