@@ -1,25 +1,47 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useMutation } from 'react-query';
 import chefmanImage from '../assets/images/chefman.png';
 import '../assets/css/Login.css';
 
 function LoginPage() {
-  const TEMP_USERNAME = 'admin';
-  const TEMP_PASSWORD = 'password123';
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { login } = useAuth();  
+  const { login } = useAuth();
+
+  // login function
+  const loginUser = async ({ username, password }) => {
+    const response = await fetch('YOUR_API_URL/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    return response.json();
+  };
+
+  // useMutation hook for the login process
+  const { mutate, isLoading, error } = useMutation(loginUser, {
+    onSuccess: (data) => {
+      login(data); // login function in your context
+      navigate('/dashboard');
+    },
+    onError: (error) => {
+      alert(error.message);
+    },
+  });
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (username === TEMP_USERNAME && password === TEMP_PASSWORD) {
-      login();  // Call the login function from the context
-      navigate('/dashboard');
-    } else {
-      alert('Invalid username or password');
-    }
+    mutate({ username, password });
   };
 
   const handleForgotPassword = () => {
@@ -31,14 +53,12 @@ function LoginPage() {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-6">
-            {/* Left side with image and Menu Master text */}
             <h1 className="text-white text-center text-md-left">Menu Master</h1>
             <div className="login-image my-4 my-md-0">
               <img src={chefmanImage} alt="Login Visual" className="img-fluid" />
             </div>
           </div>
           <div className="col-12 col-md-6">
-            {/* Right side with login form */}
             <div className="login-container bg-white p-4 shadow rounded">
               <h2 className="login-header mb-4">Welcome back.</h2>
               <form onSubmit={handleLogin}>
@@ -79,6 +99,8 @@ function LoginPage() {
           </div>
         </div>
       </div>
+      {isLoading && <p>Logging in...</p>}
+      {error && <p>Error logging in: {error.message}</p>}
     </div>
   );
 }

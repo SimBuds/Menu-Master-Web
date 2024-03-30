@@ -1,0 +1,653 @@
+{
+	"info": {
+		"_postman_id": "3e7f3300-b964-4de2-b045-c7640dcbee45",
+		"name": "MenuMaster",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7076950"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/user/",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"user-chef\",\n    \"password\": \"123\",\n    \"first_name\": \"Chef\",\n    \"last_name\": \"User\",\n    \"login_key\": \"\",\n    \"email\": \"bramirez@gmail.com\",\n    \"restaurant_id\": \"65f8954489e6e77ac7fb1027\",\n    \"user_type\": \"chef\",\n    \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/user/register",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"user-test\",\n    \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/user/login",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Restaurant",
+			"item": [
+				{
+					"name": "Get Restaurants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/restaurant/",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"restaurant",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Menu",
+			"item": [
+				{
+					"name": "Get Menu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/menu/65f8954489e6e77ac7fb1027",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"menu",
+								"65f8954489e6e77ac7fb1027"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Menu",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"peruvian menu\",\n    \"restaurant_id\": \"65f8954489e6e77ac7fb1027\",\n    \"food_profit\": 0.2,\n    \"items\": [\n        {\n            \"recipe_id\": \"65f89a5089e6e77ac7fb1033\",\n            \"price\": 15.99\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/menu/65f8ab5d89e6e77ac7fb1083",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"menu",
+								"65f8ab5d89e6e77ac7fb1083"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Recipe",
+			"item": [
+				{
+					"name": "Get Recipes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/recipe/",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"recipe",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new Recipe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\",\n    \"restaurant_id\": \"65f8954489e6e77ac7fb1027\",\n    \"image_src\": \"\",\n    \"steps\": [\"\"],\n    \"ingredients\": [\n        {\n            \"cost\": 0,\n            \"ingredient_id\": \"65f89bf889e6e77ac7fb1039\",\n            \"measure_unit\": \"lbs\",\n            \"quantity\": 0\n        }\n    ],\n    \"prep_time_min\": 0,\n    \"recipe_type\": \"Entrée\",\n    \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/recipe/",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"recipe",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Recipe",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"ceviche\",\n  \"restaurant_id\": \"65f8954489e6e77ac7fb1027\",\n  \"image_src\": \"https://upload.wikimedia.org/wikipedia/commons/7/78/Cebiche_de_corvina.JPG\",\n  \"active\": true,\n  \"steps\": [\n    \"Combine all ingredients except red onion and mix well.\",\n    \"Place red onion on top and let it marinate in the refrigerator for at least 2-3 hours before serving.\",\n    \"Before serving, mix well and serve with lettuce, corn, avocado or other cold salad vegetables on the side.\",\n    \"It is important to use a juicer that presses the juice out of the limes, not one that will tear the membrane of the lime sections since this will make the lime juice bitter.\"\n  ],\n  \"ingredients\": [\n    {\n      \"cost\": 29.99,\n      \"ingredient_id\": \"65f89bf889e6e77ac7fb1039\",\n      \"measure_unit\": \"lbs\",\n      \"quantity\": 2\n    },\n    {\n      \"cost\": 5.99,\n      \"ingredient_id\": \"65f8a81989e6e77ac7fb1079\",\n      \"measure_unit\": \"unit\",\n      \"quantity\": 8\n    },\n    {\n      \"cost\": 1.99,\n      \"ingredient_id\": \"65f8a86e89e6e77ac7fb107a\",\n      \"measure_unit\": \"tsp\",\n      \"quantity\": 1\n    },\n    {\n      \"cost\": 1.99,\n      \"ingredient_id\": \"65f8a87d89e6e77ac7fb107b\",\n      \"measure_unit\": \"tsp\",\n      \"quantity\": 0.5\n    },\n    {\n      \"cost\": 1.99,\n      \"ingredient_id\": \"65f8a88889e6e77ac7fb107c\",\n      \"measure_unit\": \"tsp\",\n      \"quantity\": 2\n    },\n    {\n      \"cost\": 7.99,\n      \"ingredient_id\": \"65f8a8ab89e6e77ac7fb107d\",\n      \"measure_unit\": \"unit\",\n      \"quantity\": 1\n    },\n    {\n      \"cost\": 10.99,\n      \"ingredient_id\": \"65f8a8ca89e6e77ac7fb107e\",\n      \"measure_unit\": \"unit\",\n      \"quantity\": 10\n    },\n    {\n      \"cost\": 2.99,\n      \"ingredient_id\": \"65f8a8d689e6e77ac7fb107f\",\n      \"measure_unit\": \"unit\",\n      \"quantity\": 1\n    }\n  ],\n  \"prep_time_min\": 10,\n  \"recipe_type\": \"Entrée\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/recipe/65f89a5089e6e77ac7fb1033",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"recipe",
+								"65f89a5089e6e77ac7fb1033"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Recipe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/recipe/65f89a5089e6e77ac7fb1033",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"recipe",
+								"65f89a5089e6e77ac7fb1033"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Prep List",
+			"item": [
+				{
+					"name": "Get Prep List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/preplist/",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"preplist",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Prep List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2024-03-27T07:14:47+00:00\",\n    \"recipe_checklist\": [\n        {\n            \"recipe\": \"\",\n            \"done\": true\n        }\n    ],\n    \"user_id\": \"660370b82505976100740749\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/preplist/",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"preplist",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Prep List by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/preplist/6603c87bc57e8ca0c3754c57",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"preplist",
+								"6603c87bc57e8ca0c3754c57"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Prep List",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2024-03-27T07:14:47+00:00\",\n    \"recipe_checklist\": [\n        {\n            \"recipe\": \"\",\n            \"done\": false\n        }\n    ],\n    \"user_id\": \"660370b82505976100740749\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/preplist/6603c87bc57e8ca0c3754c57",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"preplist",
+								"6603c87bc57e8ca0c3754c57"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Prep List",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/preplist/6603c87bc57e8ca0c3754c57",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"preplist",
+								"6603c87bc57e8ca0c3754c57"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ingredient",
+			"item": [
+				{
+					"name": "Get Ingredient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/ingredient/65f8954489e6e77ac7fb1027",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"ingredient",
+								"65f8954489e6e77ac7fb1027"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ingredient By id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/ingredient/65f8954489e6e77ac7fb1027?id=65f89bf889e6e77ac7fb1039",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"ingredient",
+								"65f8954489e6e77ac7fb1027"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "65f89bf889e6e77ac7fb1039"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Ingredient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"restaurant_id\": \"\",\n    \"price\": \"\",\n    \"unit\": \"\",\n    \"item_par\": \"\",\n    \"category\": \"\",\n    \"supplier\": \"\",\n    \"season\": \"\",\n    \"pack_size\": \"\",\n    \"raw_material\": \"\",\n    \"notes\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/ingredient",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"ingredient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Ingredient",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/ingredient/65f89bf889e6e77ac7fb1039",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"ingredient",
+								"65f89bf889e6e77ac7fb1039"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Ingredient",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/ingredient/65f89bf889e6e77ac7fb1039",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"ingredient",
+								"65f89bf889e6e77ac7fb1039"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inventory",
+			"item": [
+				{
+					"name": "Get Inventory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/inventory",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Inventory By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/inventory",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Inventory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ingredient_id\": \"65f89bf889e6e77ac7fb1039\",\n    \"stock\": 20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/inventory",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Inventory",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ingredient_id\": \"65f89bf889e6e77ac7fb1039\",\n    \"stock\": 20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/inventory",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Order",
+			"item": [
+				{
+					"name": "Get Restaurant Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/productorder/65f8954489e6e77ac7fb1027",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"productorder",
+								"65f8954489e6e77ac7fb1027"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Restaurant Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"restaurant_id\": \"65f8954489e6e77ac7fb1027\",\n    \"ingredient_id\": \"65f89bf889e6e77ac7fb1039\",\n    \"quantity\": 20,\n    \"price\": 20.5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/productorder",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"productorder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Restaurant Order Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"restaurant_id\": \"65f8954489e6e77ac7fb1027\",\n    \"ingredient_id\": \"65f89bf889e6e77ac7fb1039\",\n    \"quantity\": 20,\n    \"price\": 20.5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/productorder/65f8954489e6e77ac7fb1027",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"productorder",
+								"65f8954489e6e77ac7fb1027"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
