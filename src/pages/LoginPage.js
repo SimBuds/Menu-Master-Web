@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import chefmanImage from '../assets/images/chefman.png';
 import '../assets/css/Login.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-function LoginPage({ onLogin }) {
-  // Define temporary credentials as variables
+function LoginPage() {
   const TEMP_USERNAME = 'admin';
   const TEMP_PASSWORD = 'password123';
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();  
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Use the TEMP_USERNAME and TEMP_PASSWORD variables for validation
     if (username === TEMP_USERNAME && password === TEMP_PASSWORD) {
-      onLogin(true);
+      login();  // Call the login function from the context
       navigate('/dashboard');
     } else {
       alert('Invalid username or password');

@@ -1,53 +1,61 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { QueryClientProvider } from 'react-query';
+import { AuthContextProvider, useAuth } from './context/AuthContext';
+import { queryClient } from './services/QueryClient';
 import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
 import Users from './pages/Users';
 import Menu from './pages/Menu';
-import Sidebar from './components/Sidebar';
 import Inventory from './pages/Inventory';
 import PrepList from './components/PrepList';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Suppliers from './pages/Suppliers';
+import Recipes from './pages/Recipes';
+import NotFoundPage from './pages/NotFoundPage';
+import Sidebar from './components/Sidebar';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthContextProvider>
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </AuthContextProvider>
+    </QueryClientProvider>
+  );
+}
 
-  const handleLogin = (status) => {
-    setIsLoggedIn(status);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
+function AppContent() {
+  const { isLoggedIn, logout } = useAuth();
 
   return (
-    <BrowserRouter>
-      <div className="container-fluid">
-        <div className="row">
-          {isLoggedIn && (
-            <div className="col-md-2">
-              <Sidebar onLogout={handleLogout} />
-            </div>
-          )}
-          <div className={isLoggedIn ? "col-md-8" : "col-md-12"}>
-            <Routes>
-              <Route path="/" element={!isLoggedIn ? <LoginPage onLogin={handleLogin} /> : <Navigate replace to="/dashboard" />} />
-              <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate replace to="/" />} />
-              <Route path="/inventory" element={isLoggedIn ? <Inventory /> : <Navigate replace to="/" />} />
-              <Route path="/users" element={isLoggedIn ? <Users /> : <Navigate replace to="/" />} />
-              <Route path="/menu" element={isLoggedIn ? <Menu /> : <Navigate replace to="/" />} />
-              <Route path="/suppliers" element={<h1>Suppliers</h1>} />
-              <Route path="/recipes" element={<h1>Recipes</h1>} />
-            </Routes>
+    <div className="container-fluid">
+      <div className="row">
+        {isLoggedIn && (
+          <div className="col-md-2">
+            <Sidebar onLogout={logout} />
           </div>
-          {isLoggedIn && (
-            <div className="col-md-2">
-              <PrepList />
-            </div>
-          )}
+        )}
+        <div className={isLoggedIn ? "col-md-8" : "col-md-12"}>
+          <Routes>
+            <Route path="/" element={!isLoggedIn ? <LoginPage /> : <Navigate replace to="/dashboard" />} />
+            <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate replace to="/" />} />
+            <Route path="/inventory" element={isLoggedIn ? <Inventory /> : <Navigate replace to="/" />} />
+            <Route path="/users" element={isLoggedIn ? <Users /> : <Navigate replace to="/" />} />
+            <Route path="/menu" element={isLoggedIn ? <Menu /> : <Navigate replace to="/" />} />
+            <Route path="/suppliers" element={isLoggedIn ? <Suppliers /> : <Navigate replace to="/" />} />
+            <Route path="/recipes" element={isLoggedIn ? <Recipes /> : <Navigate replace to="/" />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
         </div>
+        {isLoggedIn && (
+          <div className="col-md-2">
+            <PrepList />
+          </div>
+        )}
       </div>
-    </BrowserRouter>
+    </div>
   );
 }
 
