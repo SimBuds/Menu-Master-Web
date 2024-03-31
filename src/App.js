@@ -11,6 +11,7 @@ import Inventory from './pages/Inventory';
 import PrepList from './components/PrepList';
 import Suppliers from './pages/Suppliers';
 import Recipes from './pages/Recipes';
+import Invoices from './pages/Invoices';
 import NotFoundPage from './pages/NotFoundPage';
 import Sidebar from './components/Sidebar';
 
@@ -46,6 +47,7 @@ function AppContent() {
             <Route path="/menu" element={isLoggedIn ? <Menu /> : <Navigate replace to="/" />} />
             <Route path="/suppliers" element={isLoggedIn ? <Suppliers /> : <Navigate replace to="/" />} />
             <Route path="/recipes" element={isLoggedIn ? <Recipes /> : <Navigate replace to="/" />} />
+            <Route path="/invoices" element={isLoggedIn ? <Invoices /> : <Navigate replace to="/" />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>

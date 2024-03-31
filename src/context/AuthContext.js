@@ -5,18 +5,26 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
+  const isLoggedIn = !!user;
+
   useEffect(() => {
-    // Check for token in localStorage when app initializes
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error('Error parsing user from localStorage:', error);
+      }
     }
   }, []);
 
   const login = (userData) => {
-    // Assuming userData contains the token and user details
-    localStorage.setItem('user', JSON.stringify(userData));
-    setUser(userData);
+    const userToStore = {
+      username: userData.username,
+      token: userData.token,
+    };
+    localStorage.setItem('user', JSON.stringify(userToStore));
+    setUser(userToStore);
   };
 
   const logout = () => {
@@ -25,7 +33,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );

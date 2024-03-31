@@ -8,38 +8,52 @@ import '../assets/css/Login.css';
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [keepSignedIn, setKeepSignedIn] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  // login function
   const loginUser = async ({ username, password }) => {
-    const response = await fetch('YOUR_API_URL/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, password }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+    // Check for mock credentials
+    if (username === 'testuser' && password === 'testpass') {
+      console.log('Mock login successful');
+      // Simulating a successful login response
+      login({ username: 'testuser', token: 'mock-token' });
+      console.log('User logged in', username);
+      navigate('/dashboard', { replace: true });
+      return; // Add this line to prevent further execution
+    } else {
+      // Actual login logic with backend request
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/user/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+  
+        const data = await response.json();
+        console.log('Login successful', data);
+        login({ username: data.username, token: data.token });
+        navigate('/dashboard');
+      } catch (error) {
+        console.error('Login error:', error);
+        alert(error.message);
+      }
     }
-
-    return response.json();
   };
 
-  // useMutation hook for the login process
   const { mutate, isLoading, error } = useMutation(loginUser, {
-    onSuccess: (data) => {
-      login(data); // login function in your context
-      navigate('/dashboard');
-    },
     onError: (error) => {
       alert(error.message);
     },
   });
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     mutate({ username, password });
   };
@@ -86,7 +100,13 @@ function LoginPage() {
                 </div>
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="keepSignedIn" />
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      id="keepSignedIn"
+                      checked={keepSignedIn}
+                      onChange={(e) => setKeepSignedIn(e.target.checked)}
+                    />
                     <label className="form-check-label" htmlFor="keepSignedIn">Keep me signed in</label>
                   </div>
                   <button className="forgot-password-link btn btn-link" type="button" onClick={handleForgotPassword}>
