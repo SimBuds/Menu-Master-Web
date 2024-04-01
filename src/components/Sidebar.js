@@ -30,6 +30,9 @@ function Sidebar({ onLogout }) {
         <NavLink to="/suppliers" className="menu-item" activeClassName="active">
           <FontAwesomeIcon icon={faTruck} className="menu-icon" /> Suppliers
         </NavLink>
+        <NavLink to="/invoices" className="menu-item" activeClassName="active">
+          <FontAwesomeIcon icon={faTruck} className="menu-icon" /> Invoices
+        </NavLink>
       </div>
       <div className="menu-section account-section">
         <p className="menu-section-title px-3 mb-2">ACCOUNT</p>

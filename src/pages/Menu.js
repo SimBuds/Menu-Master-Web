@@ -1,57 +1,70 @@
 import React, { useState, useEffect } from 'react';
-import { getAllMenus, updateMenu } from '../services/Mutations';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { getMenuById, updateMenu, getAllRecipes } from '../services/Mutations';
 
 function Menu() {
     const [searchTermRecipes, setSearchTermRecipes] = useState('');
     const [searchTermOnMenu, setSearchTermOnMenu] = useState('');
-    const [menus, setMenus] = useState([]);
-    const [recipes, setRecipes] = useState([]); // Add this line
+    const [recipes, setRecipes] = useState([]);
+    const queryClient = useQueryClient();
 
-    // Fetch menu data from the backend
+    // Fetch menu and recipes
     useEffect(() => {
-      const fetchMenus = async () => {
-          try {
-              const menusData = await getAllMenus();
-              setMenus(menusData.data);
-              setRecipes(menusData.data[0].items); // Set the recipes state variable
-          } catch (error) {
-              console.error('Failed to fetch menus:', error);
-          }
+      const fetchRecipes = async () => {
+        try {
+          const allRecipes = await getAllRecipes();
+          setRecipes(allRecipes);
+        } catch (error) {
+          console.error('Failed to fetch recipes:', error);
+        }
       };
 
-      fetchMenus();
-  }, []);
+      fetchRecipes();
+    }, []);
 
-    // Toggle recipe presence on the menu
-    const handleToggleMenu = async (id) => {
-      const updatedMenus = menus.map(menu => {
-          const updatedItems = menu.items.map(item =>
-              item.recipe_id === id ? { ...item, onMenu: !item.onMenu } : item
-          );
-          return { ...menu, items: updatedItems };
-      });
-  
-      setMenus(updatedMenus);
-  
-      // Loop over each menu and update it in the backend
-      for (const menu of updatedMenus) {
-          try {
-              await updateMenu(menu._id, { items: menu.items });
-          } catch (error) {
-              console.error(`Failed to update menu ${menu._id}:`, error);
-          }
+    const menuId = '65f8ab5d89e6e77ac7fb1083'; // Replace with actual menu ID
+
+    const { data: menu } = useQuery(['menu', menuId], () => getMenuById(menuId), {
+      onSuccess: (data) => {
+        console.log('Menu fetched successfully:', data);
+      },
+      onError: (error) => {
+        console.error('Error fetching menu:', error);
       }
-  };
+    });
 
-    // Assuming you want to filter recipes based on search term and onMenu status
+    const updateMenuMutation = useMutation(updateMenu, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['menu', menuId]);
+      },
+      onError: (error) => {
+        console.error('Error updating menu:', error);
+      },
+    });
+
+    const handleToggleMenu = (recipeId) => {
+      const updatedRecipes = recipes.map(recipe =>
+        recipe._id === recipeId ? { ...recipe, onMenu: !recipe.onMenu } : recipe
+      );
+      setRecipes(updatedRecipes);
+
+      // Construct the updated items list
+      const updatedItems = menu.items.map(item =>
+        item.recipe_id === recipeId ? { ...item, onMenu: !item.onMenu } : item
+      );
+
+      // Trigger the mutation to update the menu
+      updateMenuMutation.mutate({ id: menuId, data: { items: updatedItems } });
+    };
+
+    // Filtered recipes for UI
     const filteredRecipes = recipes.filter(recipe =>
-        recipe.name.toLowerCase().includes(searchTermRecipes.toLowerCase()) && !recipe.onMenu
+      recipe.name.toLowerCase().includes(searchTermRecipes.toLowerCase()) && !recipe.onMenu
     );
 
     const filteredOnMenu = recipes.filter(recipe =>
-        recipe.name.toLowerCase().includes(searchTermOnMenu.toLowerCase()) && recipe.onMenu
+      recipe.name.toLowerCase().includes(searchTermOnMenu.toLowerCase()) && recipe.onMenu
     );
-
 
     return (
         <div className="container mt-3">

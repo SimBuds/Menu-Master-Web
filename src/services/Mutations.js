@@ -1,5 +1,4 @@
-// Users Api and Mutator
-
+// Users Apis and Mutators
 // Login
 export async function loginUser({ username, password }) {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/user/login`, {
@@ -43,13 +42,12 @@ export async function registerUser(userData) {
     return response.json();
 }
 
-// Menu Api and Mutator
-
-// Get All Menus
-export async function getAllMenus() {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/menu`);
+// Menu Apis and Mutators
+// Get Menu by ID
+export async function getMenuById(menuId) {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/menu/${menuId}`);
     if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error('Failed to fetch menu');
     }
     return response.json();
 }
@@ -57,7 +55,7 @@ export async function getAllMenus() {
 // Update Menu
 export async function updateMenu(menuId, menuData) {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/menu/${menuId}`, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
@@ -68,5 +66,15 @@ export async function updateMenu(menuId, menuData) {
         throw new Error('Failed to update menu');
     }
 
+    return response.json();
+}
+
+// Recipe Apis and Mutators
+// Get Recipes
+export async function getAllRecipes() {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/recip/e`);
+    if (!response.ok) {
+        throw new Error('Failed to fetch recipe');
+    }
     return response.json();
 }
