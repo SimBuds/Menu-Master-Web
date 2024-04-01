@@ -14,6 +14,7 @@ import Recipes from './pages/Recipes';
 import Invoices from './pages/Invoices';
 import NotFoundPage from './pages/NotFoundPage';
 import Sidebar from './components/Sidebar';
+import './assets/css/App.css';
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function AppContent() {
   const { isLoggedIn, logout } = useAuth();
 
   return (
-    <div className="container-fluid">
+    <div className="app-container">
       <div className="row">
         {isLoggedIn && (
           <div className="col-md-2">

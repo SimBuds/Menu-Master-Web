@@ -1,13 +1,5 @@
 /* Login.css */
 
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden; /* Prevent horizontal scroll */
-}
-
 .login-page {
   background-color: #f05f40; /* Adjust the color to match the exact orange shade */
   display: flex;
@@ -116,7 +108,7 @@ html, body {
 /* Responsive adjustments for smaller devices */
 @media (max-width: 768px) {
   .login-container {
-    width: 90%; /* On mobile, make the login container take up more of the screen */
+    width: 100%; /* On mobile, make the login container take up more of the screen */
     padding: 1rem; /* Adjust padding for smaller screens */
   }
 

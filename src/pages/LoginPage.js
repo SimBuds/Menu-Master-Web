@@ -10,16 +10,27 @@ function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [keepSignedIn, setKeepSignedIn] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const { mutate, isLoading, error } = useMutation(loginUser, {
-    onSuccess: (data) => {
-      login({ username: data.username, token: data.token });
-      navigate('/dashboard');
+  const { mutate, isLoading } = useMutation(loginUser, {
+    onSuccess: (response) => {
+      if (response.data) {
+        console.log('Login successful:', response.data);
+        login({ username: response.data.username, token: response.data.token });
+        navigate('/dashboard');
+      } else {
+        console.error('Error logging in:', response.message);
+        setErrorMessage(response.message || 'Unable to login, please try again.');
+        setShowError(true);
+      }
     },
     onError: (error) => {
-      alert(error.message);
+      console.error('Error logging in:', error);
+      setErrorMessage(error.message);
+      setShowError(true);
     },
   });
 
@@ -90,7 +101,11 @@ function LoginPage() {
         </div>
       </div>
       {isLoading && <p>Logging in...</p>}
-      {error && <p>Error logging in: {error.message}</p>}
+      {showError && 
+        <div className="error-message">
+          <p>{errorMessage}</p>
+        </div>
+      }
     </div>
   );
 }

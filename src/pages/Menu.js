@@ -1,25 +1,47 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-// Mock data for recipes
-const recipesData = [
-  { id: 1, name: 'Demi Glace', onMenu: false },
-  { id: 2, name: 'Creme Brulee', onMenu: false },
-  { id: 3, name: 'Chicken Stock', onMenu: false },
-  // ... other recipes
-];
+import React, { useState, useEffect } from 'react';
+import { getAllMenus, updateMenu } from '../services/Mutations';
 
 function Menu() {
-    const [recipes, setRecipes] = useState(recipesData);
     const [searchTermRecipes, setSearchTermRecipes] = useState('');
     const [searchTermOnMenu, setSearchTermOnMenu] = useState('');
+    const [menus, setMenus] = useState([]);
+    const [recipes, setRecipes] = useState([]); // Add this line
+
+    // Fetch menu data from the backend
+    useEffect(() => {
+      const fetchMenus = async () => {
+          try {
+              const menusData = await getAllMenus();
+              setMenus(menusData.data);
+              setRecipes(menusData.data[0].items); // Set the recipes state variable
+          } catch (error) {
+              console.error('Failed to fetch menus:', error);
+          }
+      };
+
+      fetchMenus();
+  }, []);
 
     // Toggle recipe presence on the menu
-    const handleToggleMenu = (id) => {
-        setRecipes(recipes.map(recipe =>
-        recipe.id === id ? { ...recipe, onMenu: !recipe.onMenu } : recipe
-        ));
-    };
+    const handleToggleMenu = async (id) => {
+      const updatedMenus = menus.map(menu => {
+          const updatedItems = menu.items.map(item =>
+              item.recipe_id === id ? { ...item, onMenu: !item.onMenu } : item
+          );
+          return { ...menu, items: updatedItems };
+      });
+  
+      setMenus(updatedMenus);
+  
+      // Loop over each menu and update it in the backend
+      for (const menu of updatedMenus) {
+          try {
+              await updateMenu(menu._id, { items: menu.items });
+          } catch (error) {
+              console.error(`Failed to update menu ${menu._id}:`, error);
+          }
+      }
+  };
 
     // Assuming you want to filter recipes based on search term and onMenu status
     const filteredRecipes = recipes.filter(recipe =>
@@ -29,6 +51,7 @@ function Menu() {
     const filteredOnMenu = recipes.filter(recipe =>
         recipe.name.toLowerCase().includes(searchTermOnMenu.toLowerCase()) && recipe.onMenu
     );
+
 
     return (
         <div className="container mt-3">

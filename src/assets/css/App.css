@@ -1,0 +1,16 @@
+/* index.css */
+
+/* Set base HTML and body styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto; /* Allows horizontal scroll on very small devices */
+}
+
+/* Set a base class for the main content of your app */
+.app-container {
+  margin: 0 auto; /* Centers the container */
+  width: 100%; /* Use 100% of the viewport width when below max-width */
+  padding: 0; /* Adds some padding on the sides */
+}
