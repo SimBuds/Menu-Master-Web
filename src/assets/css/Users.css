@@ -42,4 +42,65 @@
     margin-right: 8px; /* Space between the Edit and Delete buttons */
   }
   
-  /* Additional custom styles can be added as needed */
+/* Modal specific styles */
+.modal-content {
+  border-radius: 8px; /* Rounded corners for the modal */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* A more pronounced shadow for the modal */
+  padding: 20px; /* Padding inside the modal */
+}
+
+.modal-header {
+  border-bottom: 1px solid #e9ecef; /* A lighter border for the header */
+  padding-bottom: 10px; /* Less padding at the bottom of the header */
+}
+
+.modal-body {
+  padding-top: 20px; /* More space at the top of the modal body */
+}
+
+/* Form field styles */
+.users-table-container .form-control {
+  border-radius: 4px; /* Less rounded borders for the input */
+  border: 1px solid #ced4da; /* Bootstrap default border color */
+  padding: 0.375rem 0.75rem; /* Bootstrap default padding */
+  margin-bottom: 1rem; /* Space between form fields */
+}
+
+/* Button styles */
+.users-table-container .btn-primary,
+.users-table-container .btn-outline-danger {
+  border-radius: 4px; /* Less rounded borders for the buttons */
+  padding: 0.375rem 0.75rem; /* Bootstrap default padding */
+}
+
+.users-table-container .btn-primary {
+  background-color: #007bff; /* Primary button color */
+  border-color: #007bff; /* Primary button border color */
+}
+
+.users-table-container .btn-outline-danger {
+  color: #dc3545; /* Danger color for the delete button text */
+  border-color: #dc3545; /* Danger color for the delete button border */
+}
+
+.users-table-container .btn-outline-danger:hover {
+  background-color: #dc3545; /* Danger color background on hover */
+  color: #fff; /* White text on hover */
+}
+
+/* Checkbox styles */
+.users-table-container .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #007bff; /* Checked state background color */
+  border-color: #007bff; /* Checked state border color */
+}
+
+/* Adjust modal footer button spacing */
+.modal-footer {
+  border-top: 1px solid #e9ecef; /* A lighter border for the footer */
+  padding-top: 15px; /* More padding at the top of the footer */
+  justify-content: flex-end; /* Align buttons to the right */
+}
+
+.modal-footer .btn {
+  margin-left: 10px; /* Space between buttons */
+}

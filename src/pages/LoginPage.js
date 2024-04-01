@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useMutation } from 'react-query';
+import { loginUser } from '../services/Mutations';
 import chefmanImage from '../assets/images/chefman.png';
 import '../assets/css/Login.css';
 
@@ -12,42 +13,11 @@ function LoginPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const loginUser = async ({ username, password }) => {
-    // Check for mock credentials
-    if (username === 'testuser' && password === 'testpass') {
-      console.log('Mock login successful');
-      // Simulating a successful login response
-      login({ username: 'testuser', token: 'mock-token' });
-      console.log('User logged in', username);
-      navigate('/dashboard', { replace: true });
-      return; // Add this line to prevent further execution
-    } else {
-      // Actual login logic with backend request
-      try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/user/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ username, password }),
-        });
-  
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-  
-        const data = await response.json();
-        console.log('Login successful', data);
-        login({ username: data.username, token: data.token });
-        navigate('/dashboard');
-      } catch (error) {
-        console.error('Login error:', error);
-        alert(error.message);
-      }
-    }
-  };
-
   const { mutate, isLoading, error } = useMutation(loginUser, {
+    onSuccess: (data) => {
+      login({ username: data.username, token: data.token });
+      navigate('/dashboard');
+    },
     onError: (error) => {
       alert(error.message);
     },
