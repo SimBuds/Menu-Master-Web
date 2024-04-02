@@ -166,10 +166,8 @@ export async function deleteRecipe(recipeId) {
 
 // Invetory Api and Mutators
 // Get Inventory by ID
-export async function getInventoryById(inventoryId) {
-    const queryParams = new URLSearchParams({ id: inventoryId }).toString();
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/inventory?${queryParams}`);
-    
+export async function getAllInventory() {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/inventory/`);
     if (!response.ok) {
         throw new Error(`Failed to fetch inventory: HTTP status ${response.status}`);
     }
@@ -195,10 +193,9 @@ export async function createInventory(inventoryData) {
 }
 
 // Update Inventory
-export async function updateInventory({ inventoryId, inventoryData }) {
-    const encodedInventoryId = encodeURIComponent(inventoryId);
-    const url = `${process.env.REACT_APP_API_URL}/inventory/${encodedInventoryId}`;
-    
+export async function updateInventory(inventoryData) {
+    const url = `${process.env.REACT_APP_API_URL}/inventory/${inventoryData._id}`;
+
     const response = await fetch(url, {
         method: 'PUT',
         headers: {
