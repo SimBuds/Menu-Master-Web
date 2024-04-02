@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState, useEffect } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { getInventoryById, createInventory, updateInventory, deleteInventory } from '../services/Mutations';
 import '../assets/css/Inventory.css';
 
 function Inventory() {
-  const initialInventoryItems = [
-    { id: 1, product: 'Carrot', amount: '2 kg', par: '3 kg', unitCost: '$5.49', totalCost: '$10.98', category: 'Produce', reorder: '1 kg' },
-    { id: 2, product: 'Onion', amount: '10 lb', par: '10 lb', unitCost: '$3.99', totalCost: '$3.99', category: 'Produce', reorder: '0 kg' },
-  ];
-
-  const [inventoryItems, setInventoryItems] = useState(initialInventoryItems);
+  const queryClient = useQueryClient();
+  const [inventoryItems, setInventoryItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
   const [newItem, setNewItem] = useState({
@@ -24,24 +21,92 @@ function Inventory() {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
 
+  const { data: inventoryData, isLoading } = useQuery('inventory', getInventoryById);
+
+  const createMutation = useMutation(createInventory, {
+    onSuccess: (newItem) => {
+      queryClient.setQueryData('inventory', (oldData) => {
+        return [...(oldData || []), newItem];
+      });
+    },
+  onError: (error) => {
+    console.error('Error creating item:', error);
+  },
+  onMutate: (newItem) => {
+    console.log('Creating item with payload:', newItem);
+  }
+});
+
+const updateMutation = useMutation(updateInventory, {
+  onSuccess: (data) => {
+    console.log('Item updated successfully:', data);
+    // Update the inventoryItems state directly
+    setInventoryItems((prevItems) =>
+      prevItems.map((item) => (item.id === data.id ? data : item))
+    );
+    queryClient.invalidateQueries('inventory');
+  },
+  onError: (error) => {
+    console.error('Error updating item:', error);
+  },
+  onMutate: (updateData) => {
+    console.log('Updating item with payload:', updateData);
+  }
+});
+
+const deleteMutation = useMutation(deleteInventory, {
+  onSuccess: (deletedItemId) => {
+    console.log('Item deleted successfully:', deletedItemId);
+    // Update the inventoryItems state directly
+    setInventoryItems((prevItems) =>
+      prevItems.filter((item) => item.id !== deletedItemId)
+    );
+    queryClient.invalidateQueries('inventory');
+  },
+  onError: (error) => {
+    console.error('Error deleting item:', error);
+  },
+  onMutate: (itemId) => {
+    console.log('Deleting item with id:', itemId);
+  }
+});
+
+
+useEffect(() => {
+  console.log('Inventory Data:', inventoryData);
+  if (!isLoading && inventoryData && inventoryData.data) {
+    const formattedInventoryItems = inventoryData.data.map(item => ({
+      ...item,
+      _id: item._id.$oid,
+      ingredient_id: item.ingredient_id.$oid,
+      stock: item.stock
+    }));
+    console.log('Formatted Inventory Items:', formattedInventoryItems);
+    setInventoryItems(formattedInventoryItems);
+  }
+}, [inventoryData, isLoading]);
+
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
   const filteredItems = inventoryItems.filter(item =>
-    item.product.toLowerCase().includes(searchTerm.toLowerCase())
+    item.product && item.product.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleDelete = (itemId) => {
+  const handleDelete = async (itemId) => {
     setItemToDelete(itemId);
     setShowDeleteConfirmation(true);
   };
 
-  const handleConfirmDelete = () => {
-    setInventoryItems(inventoryItems.filter(item => item.id !== itemToDelete));
+  const handleConfirmDelete = async () => {
+    console.log('Confirm delete for item ID:', itemToDelete);
+    await deleteMutation.mutateAsync(itemToDelete);
     setShowDeleteConfirmation(false);
-    setItemToDelete(null); // Reset the itemToDelete state
-  };
+    setItemToDelete(null);
+  };  
+  
 
   const handleEdit = (itemId) => {
     const itemToEdit = inventoryItems.find(item => item.id === itemId);
@@ -61,16 +126,21 @@ function Inventory() {
     }));
   };
 
-  const handleAddItem = () => {
+  const handleAddItem = async () => {
+    console.log('Submitting item:', newItem);
     if (newItem.id) {
       // It's an existing item, update it
-      setInventoryItems(inventoryItems.map(item => item.id === newItem.id ? newItem : item));
+      console.log('Updating item with id:', newItem.id);
+      await updateMutation.mutateAsync({ inventoryId: newItem.id, inventoryData: newItem });
     } else {
       // It's a new item, add it
-      const newItemWithId = { ...newItem, id: Math.max(...inventoryItems.map(item => item.id)) + 1 };
-      setInventoryItems([...inventoryItems, newItemWithId]);
+      const newItemId = Math.max(0, ...inventoryItems.map(item => item.id || 0)) + 1; // Ensure no NaN values
+      const newItemWithId = { ...newItem, id: newItemId };
+      console.log('Creating new item with id:', newItemId);
+      await createMutation.mutateAsync(newItemWithId);
     }
     setShowAddForm(false);
+    // Reset the newItem state directly here
     setNewItem({
       product: '',
       amount: '',
@@ -81,7 +151,7 @@ function Inventory() {
       reorder: ''
     });
   };
-
+  
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent the form from causing a page reload
     handleAddItem(); // Proceed to add the item with the current form data
