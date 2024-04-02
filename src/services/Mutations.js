@@ -45,22 +45,29 @@ export async function registerUser(userData) {
 // Menu Api and Mutators
 // Get Menu by ID
 export async function getMenuById(menuId) {
-    const encodedMenuId = encodeURIComponent(menuId);
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/menu/${encodedMenuId}`);
-    if (!response.ok) {
-        throw new Error('Failed to fetch menu');
+    try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/menu/${menuId}`);
+        const responseData = await response.json();
+
+        if (!response.ok) {
+            console.error('An error occurred while fetching the menu:', response.statusText);
+            throw new Error('Failed to fetch menu');
+        }
+
+        return responseData;
+    } catch (error) {
+        console.error("An error occurred while fetching the menu:", error);
+        throw error;
     }
-    return response.json();
 }
 
 // Update Menu
 export async function updateMenu({ menuId, menuData }) {
-    const encodedMenuId = encodeURIComponent(menuId);
-    const url = `${process.env.REACT_APP_API_URL}/menu/${encodedMenuId}`;
+    const url = `${process.env.REACT_APP_API_URL}/menu/${menuId}`;
 
     try {
         const response = await fetch(url, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -69,35 +76,30 @@ export async function updateMenu({ menuId, menuData }) {
 
         const responseData = await response.json();
 
-        // Check if the 'data' property in the response is not null
         if (responseData.data === null) {
-            // If 'data' is null, treat it as an error even if HTTP status is 200
+            console.error('An error occurred while updating the menu: Data is null');
             throw new Error(responseData.message || 'Failed to update menu: Data is null');
         }
 
         return responseData;
-
     } catch (error) {
         console.error("An error occurred while updating the menu:", error);
         throw error;
     }
 }
 
-
 // Recipe Api and Mutators
 // Get Recipes
 export async function getAllRecipes() {
     try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/recipe/`);
-        const responseData = await response.json(); // Parse the response
+        const responseData = await response.json();
 
-        // Check if 'data' is true. Assuming true indicates success.
-        if (responseData.data !== true) {
-            // If 'data' is not true, treat it as an error
-            throw new Error(responseData.message || 'Failed to fetch recipes: Data returned false');
+        if (!Array.isArray(responseData.data)) {
+            throw new Error(responseData.message || 'Failed to fetch recipes: Data is not an array');
         }
 
-        return responseData; // If successful (data is true), return the full response data
+        return responseData;
     } catch (error) {
         console.error("An error occurred while fetching the recipes:", error);
         throw error;

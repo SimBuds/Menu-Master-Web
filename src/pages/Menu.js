@@ -47,7 +47,7 @@ function Menu() {
   const handleToggleMenu = (recipeId) => {
     // Save the current menu data before making changes
     if (!previousMenuData) {
-      setPreviousMenuData(menuData.data);
+      setPreviousMenuData(menuData?.data || []);
     }
   
     if (!menuData?.data || !Array.isArray(menuData.data.items)) {
