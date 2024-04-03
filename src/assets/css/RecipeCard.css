@@ -1,0 +1,124 @@
+.recipe-card {
+    background: white;
+    border-radius: 10px; /* Adjusted for a slightly rounded look */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16); /* Softer shadow for a friendlier appearance */
+    padding: 10px; /* Reduced padding for a smaller card height */
+    position: relative;
+    width: 100%; /* Increased width for a wider card */
+    max-width: 450px; /* Increased max-width for a wider card */
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto; /* Center card for better UX */
+    height: auto; /* Height set to auto to adjust to content */
+  }
+  
+  .recipe-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Reduced margin for a more compact header */
+  }
+  
+  .recipe-card-title {
+    margin: 0;
+    font-size: 18px; /* Reduced font size for a more compact title */
+    color: #333;
+    font-weight: bold; /* Boldness for better readability */
+  }
+  
+  .recipe-card-close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px; /* Reduced font size for a more compact button */
+    color: #333;
+  }
+  
+  .recipe-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Reduced gap for a more compact body */
+    margin-bottom: 10px; /* Reduced margin for a more compact body */
+  }
+  
+  .recipe-card-image {
+    width: 100%;
+    border-radius: 6px; /* Adjusted border-radius for a friendlier image */
+    margin-bottom: 10px; /* Reduced margin for a more compact image display */
+  }
+  
+  .recipe-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Reduced gap for a more compact info section */
+  }
+  
+  .recipe-card-ingredients {
+    margin-top: 8px; /* Reduced margin for a more compact ingredients list */
+  }
+  
+  .recipe-card-ingredient {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px; /* Reduced margin for a more compact ingredient display */
+    align-items: center;
+  }
+  
+  .ingredient-name {
+    font-weight: bold;
+    flex-grow: 1;
+  }
+  
+  .ingredient-quantity,
+  .ingredient-cost {
+    margin-left: 8px; /* Margin adjusted for a balanced layout */
+    flex-basis: 30%; /* Basis adjusted for better alignment of quantities and costs */
+  }
+  
+  .recipe-card-footer {
+    display: flex;
+    justify-content: center; /* Centered buttons for a more user-friendly footer */
+    padding-top: 10px; /* Reduced padding for a more compact footer */
+    border-top: 1px solid #e8e8e8;
+  }
+  
+  .recipe-card-cancel-btn,
+  .recipe-card-save-btn {
+    padding: 8px 18px; /* Reduced padding for smaller buttons */
+    border: none;
+    border-radius: 6px; /* Adjusted border-radius for friendlier buttons */
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px; /* Font size adjusted for readable buttons */
+    margin: 0 5px; /* Added margin between buttons */
+    background-color: #ff3e00; /* Color theme adjusted to match the image example */
+    color: white;
+  }
+  
+  .recipe-card-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .recipe-card-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+  }
+  
+  @media (max-width: 600px) {
+    .recipe-card {
+      width: 100%; /* Full width for better mobile UX */
+      max-width: none;
+      margin-bottom: 15px; /* Reduced margin for spacing between cards on mobile */
+      padding: 8px; /* Further reduced padding for a more compact mobile card */
+    }
+  }

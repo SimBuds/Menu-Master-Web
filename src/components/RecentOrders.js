@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import '../assets/css/RecentOrders.css';
 
 function RecentOrders() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
-  const orders = [
+  const [orders, setOrders] = useState([
     { product: 'Avocados', unitPrice: '$12', quantity: '50', total: '$600', status: 'Delivered' },
-    { product: 'Chicken Breast', unitPrice: '$300', quantity: '100', total: '$900', status: 'Not delivered' },
-    { product: 'Flour', unitPrice: '$500', quantity: '12 lb', total: '$1000', status: 'Delivered' },
-  ];
+    { product: 'Chicken Breast', unitPrice: '$300', quantity: '100', total: '$900', status: 'In Transit' },
+    { product: 'Flour', unitPrice: '$500', quantity: '12 lb', total: '$1000', status: 'Ordered' },
+    { product: 'Apples', unitPrice: '$5', quantity: '30', total: '$150', status: 'Delivered' },
+    { product: 'Oranges', unitPrice: '$8', quantity: '40', total: '$320', status: 'Ordered' },
+    { product: 'Milk', unitPrice: '$10', quantity: '10', total: '$100', status: 'In Transit' },
+    { product: 'Eggs', unitPrice: '$3', quantity: '60', total: '$180', status: 'Ordered' },
+  ]);
 
   const filteredOrders = orders.filter(order => {
     return (
@@ -17,6 +21,12 @@ function RecentOrders() {
       order.product.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
+
+  const handleDeliver = (product) => {
+    setOrders(orders.map(order => 
+      order.product === product ? { ...order, status: 'Delivered' } : order
+    ));
+  };
 
   return (
     <div className="recent-orders">
@@ -33,7 +43,8 @@ function RecentOrders() {
         >
           <option value="All">All</option>
           <option value="Delivered">Delivered</option>
-          <option value="Not delivered">Not delivered</option>
+          <option value="In Transit">In Transit</option>
+          <option value="Ordered">Ordered</option>
         </select>
       </div>
       <Table striped bordered hover>
@@ -44,6 +55,7 @@ function RecentOrders() {
             <th>Quantity</th>
             <th>Total</th>
             <th>Status</th>
+            <th>Delivery</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +66,11 @@ function RecentOrders() {
               <td>{order.quantity}</td>
               <td>{order.total}</td>
               <td className={`status ${order.status.replace(' ', '-').toLowerCase()}`}>{order.status}</td>
+              <td>
+                <Button onClick={() => handleDeliver(order.product)} disabled={order.status === 'Delivered'}>
+                  Mark as Delivered
+                </Button>
+              </td>
             </tr>
           ))}
         </tbody>

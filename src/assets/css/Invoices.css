@@ -1,0 +1,66 @@
+.recent-orders {
+  max-width: 1200px; /* Set a max-width for larger screens */
+  margin: 0 auto; /* Center the orders on the page */
+  padding: 20px; /* Add padding around the orders for spacing */
+  background: #fff; /* Set a white background for the orders section */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+  border-radius: 8px; /* Round the corners of the orders section */
+}
+
+.filters {
+  display: flex; /* Use flexbox for the filters for better alignment */
+  justify-content: space-between; /* Space out the search and select elements */
+  margin-bottom: 20px; /* Add margin below the filters for spacing */
+}
+
+.search-product {
+  flex-grow: 1; /* Allow the search input to grow and fill available space */
+  margin-right: 20px; /* Add margin to the right of the search input */
+}
+
+.status-filter {
+  width: 200px; /* Set a fixed width for the status select element */
+}
+
+.table {
+  margin-bottom: 0; /* Remove margin below the table for tighter spacing */
+}
+
+/* Style the table headers */
+.table thead th {
+  background-color: #f8f9fa; /* Light background for the table headers */
+  border-top: none; /* Remove the top border for a cleaner look */
+}
+
+/* Style the table cells */
+.table tbody td {
+  vertical-align: middle; /* Align the content of table cells to the middle */
+}
+
+/* Style the status column */
+.status {
+  text-transform: capitalize; /* Capitalize the status text */
+  font-weight: bold; /* Make the status text bold */
+}
+
+/* Style the delivery button */
+.btn {
+  padding: 5px 10px; /* Reduce padding for a smaller button */
+  font-size: 0.875rem; /* Reduce font size for a more appropriate button size */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column; /* Stack the filters on top of each other */
+  }
+
+  .search-product {
+    margin-right: 0; /* Remove the margin-right on mobile */
+    margin-bottom: 10px; /* Add margin below the search input on mobile */
+  }
+
+  .status-filter {
+    width: 100%; /* Full width for the status select on mobile */
+  }
+}

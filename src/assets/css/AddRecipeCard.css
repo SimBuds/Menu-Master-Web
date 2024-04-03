@@ -1,0 +1,99 @@
+.recipe-card-popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.recipe-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.recipe-card-title {
+  font-size: 1.5em;
+  color: #333;
+}
+
+.recipe-card-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.recipe-card-body {
+  display: grid;
+  grid-gap: 10px;
+}
+
+.recipe-card-body input[type="text"],
+.recipe-card-body input[type="number"],
+.recipe-card-body input[type="url"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.recipe-card-body input[type="text"]:focus,
+.recipe-card-body input[type="number"]:focus,
+.recipe-card-body input[type="url"]:focus {
+  outline: none;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.recipe-card-save-btn {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.recipe-card-save-btn:hover {
+  background-color: #ff4757;
+}
+
+.recipe-card-body .ingredient-input-group {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.recipe-card-body .ingredient-input-group input[type="text"],
+.recipe-card-body .ingredient-input-group input[type="number"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.recipe-card-body .ingredient-input-group input[type="text"]:focus,
+.recipe-card-body .ingredient-input-group input[type="number"]:focus {
+  outline: none;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}

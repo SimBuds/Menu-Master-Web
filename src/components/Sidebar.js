@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/css/Sidebar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faBox, faUtensils, faUsers, faTruck, faBook, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faBox, faUtensils, faUsers, faTruck, faBook, faSignOutAlt, faFileInvoice } from '@fortawesome/free-solid-svg-icons';
 
 function Sidebar({ onLogout }) {
 
@@ -31,7 +31,7 @@ function Sidebar({ onLogout }) {
           <FontAwesomeIcon icon={faTruck} className="menu-icon" /> Suppliers
         </NavLink>
         <NavLink to="/invoices" className="menu-item" activeClassName="active">
-          <FontAwesomeIcon icon={faTruck} className="menu-icon" /> Invoices
+          <FontAwesomeIcon icon={faFileInvoice} className="menu-icon" /> Invoices
         </NavLink>
       </div>
       <div className="menu-section account-section">
