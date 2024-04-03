@@ -15,7 +15,7 @@
 .custom-select {
     display: inline-block;
     width: 100%;
-    height: calc(1.5em + .75rem + 2px);
+    height: calc(2em + .75rem + 2px); /* Adjusted height for better scaling */
     padding: .375rem 1.75rem .375rem .75rem;
     font-size: 1rem;
     font-weight: 400;

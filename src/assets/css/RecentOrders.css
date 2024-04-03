@@ -1,13 +1,5 @@
 /* RecentOrders.css */
 
-/* Use CSS variables for colors for easier maintenance */
-:root {
-  --delivered-green: #28a745;
-  --not-delivered-red: #dc3545;
-  --border-color: #ddd;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-}
-
 .search-product {
   margin-bottom: 1rem;
   border-radius: 20px;

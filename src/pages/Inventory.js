@@ -9,7 +9,6 @@ function Inventory() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
   const [newItem, setNewItem] = useState({
-    _id: '',
     ingredient_id: '',
     stock: ''
   });
@@ -23,7 +22,8 @@ function Inventory() {
     },
     onSuccess: (data) => {
       console.log('Item created successfully, response data:', data);
-      queryClient.setQueryData('inventory', (oldData) => [...(oldData || []), data]);
+      queryClient.setQueryData('inventory', (oldData) => [...(oldData || []), data.data]);
+      resetFields();
     },
     onError: (error) => {
       console.error('Error creating item:', error);
@@ -38,16 +38,25 @@ function Inventory() {
     onSuccess: (data) => {
       console.log('Item updated successfully, response data:', data);
       queryClient.invalidateQueries('inventory');
+      resetFields();
     },
     onError: (error) => {
       console.error('Error updating item:', error);
     },
   });
 
+  const resetFields = () => {
+    setShowAddForm(false);
+    setNewItem({
+      ingredient_id: '',
+      stock: ''
+    });
+  };
+
   useEffect(() => {
     if (!isLoading && inventoryData?.data) {
       const formattedInventoryItems = inventoryData.data.map(item => ({
-        _id: item._id,
+        _id: item.data,
         ingredient_id: item.ingredient_id,
         stock: item.stock,
       }));
@@ -88,24 +97,26 @@ function Inventory() {
         };
 
         console.log('Updating item with payload:', payload);
-        await updateMutation.mutateAsync(payload);
+        try {
+          await updateMutation.mutateAsync(payload);
+        } catch (error) {
+          console.error('Failed to update item:', error);
+        }
     } else {
         console.log('Creating new item');
-        await createMutation.mutateAsync(newItem);
+        try {
+          await createMutation.mutateAsync(newItem);
+        } catch (error) {
+          console.error('Failed to create item:', error);
+        }
     }
-    setShowAddForm(false);
-    setNewItem({
-        _id: '',
-        ingredient_id: '',
-        stock: ''
-    });
   };
 
   const handleAddItemChange = (e) => {
     const { name, value } = e.target;
     setNewItem(prevState => ({
       ...prevState,
-      [name]: name === 'stock' ? value : value 
+      [name]: value
     }));
   };
 
@@ -134,7 +145,6 @@ function Inventory() {
       <table className="table">
         <thead>
           <tr>
-            <th scope="col">ID</th>
             <th scope="col">Ingredient ID</th>
             <th scope="col">Stock</th>
             <th scope="col">Modify</th>
@@ -143,12 +153,11 @@ function Inventory() {
         <tbody>
           {filteredItems.length === 0 ? (
             <tr>
-              <td colSpan="4">No items found.</td>
+              <td colSpan="3">No items found.</td>
             </tr>
           ) : (
             filteredItems.map(item => (
               <tr key={item._id}>
-                <td>{item._id}</td>
                 <td>{item.ingredient_id}</td>
                 <td>{item.stock}</td>
                 <td>
@@ -197,7 +206,8 @@ function Inventory() {
                       id="ingredientId"
                       name="ingredient_id"
                       value={newItem.ingredient_id}
-                      readOnly
+                      onChange={handleAddItemChange}
+                      required
                     />
                   </div>
                   <div className="modal-footer">

@@ -1,7 +1,7 @@
 /* PrepList.css */
 
 .prep-list-container {
-  max-width: 350px; /* Adjust width as needed */
+  max-width: 100%; /* Full width on all devices */
   margin: auto;
   padding-top: 20px;
 }
@@ -19,6 +19,7 @@
   border: none;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevents content from spilling out */
 }
 
 .prep-header {
@@ -76,9 +77,35 @@
   color: white;
   border-radius: 20px; /* Match the design */
   padding: 10px 25px; /* Adjust padding to match design */
-  width: 100%; /* Full width button */
+  width: calc(100% - 40px); /* Adjust width to account for padding */
   font-size: 1em; /* Adjust font size as needed */
   margin-top: 15px; /* Space between the last item and the button */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Responsive scaling */
+@media (min-width: 576px) {
+  .prep-list-container {
+    max-width: 540px; /* Adjust based on Bootstrap's sm breakpoint */
+  }
+}
+
+@media (min-width: 768px) {
+  .prep-list-container {
+    max-width: 720px; /* Adjust based on Bootstrap's md breakpoint */
+  }
+}
+
+@media (min-width: 992px) {
+  .prep-list-container {
+    max-width: 960px; /* Adjust based on Bootstrap's lg breakpoint */
+  }
+}
+
+@media (min-width: 1200px) {
+  .prep-list-container {
+    max-width: 1140px; /* Adjust based on Bootstrap's xl breakpoint */
+  }
 }
 
 /* Add any additional styles or overrides as needed */

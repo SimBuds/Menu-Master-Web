@@ -10,9 +10,6 @@ function RecentOrders() {
     { product: 'Chicken Breast', unitPrice: '$300', quantity: '100', total: '$900', status: 'In Transit' },
     { product: 'Flour', unitPrice: '$500', quantity: '12 lb', total: '$1000', status: 'Ordered' },
     { product: 'Apples', unitPrice: '$5', quantity: '30', total: '$150', status: 'Delivered' },
-    { product: 'Oranges', unitPrice: '$8', quantity: '40', total: '$320', status: 'Ordered' },
-    { product: 'Milk', unitPrice: '$10', quantity: '10', total: '$100', status: 'In Transit' },
-    { product: 'Eggs', unitPrice: '$3', quantity: '60', total: '$180', status: 'Ordered' },
   ]);
 
   const filteredOrders = orders.filter(order => {

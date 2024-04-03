@@ -1,7 +1,7 @@
 /* Login.css */
 
 .login-page {
-  background-color: #f05f40; /* Adjust the color to match the exact orange shade */
+  background-color: #f05f40; /* Adjust the color using HEX, RGB, or HSL to match the exact orange shade */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,12 +10,13 @@
   overflow: hidden; /* Hide any overflow */
   margin: 0; /* No margin */
   padding: 0; /* No padding */
+  flex-direction: column; 
 }
 
 .menu-master-header {
   position: absolute;
-  top: 10%; /* Adjust as necessary to match the image */
-  left: 10%; /* Adjust as necessary to match the image */
+  top: 10%; /* Adjust as necessary */
+  left: 10%; /* Adjust as necessary */
   color: #fff; /* White color text */
   font-size: 2rem; /* Adjust size as needed */
 }
@@ -25,8 +26,10 @@
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 350px; /* Adjust as needed to match the image */
-  margin: auto;
+  width: 350px; /* Adjust as needed */
+  max-width: 350px; /* Ensure it doesn't exceed 350px */
+  width: 100%; /* Take up full width on small screens */
+  margin: 1rem auto; /* Center it with automatic margins, adjusted margin for all screens */
   display: flex;
   flex-direction: column;
   align-items: center; /* Center the items horizontally */
@@ -47,14 +50,14 @@
 .form-control {
   display: block;
   width: 100%;
-  padding: .5rem .75rem; /* Slightly more padding to match the image */
+  padding: .5rem .75rem; /* Slightly more padding */
   font-size: 1rem;
   line-height: 1.5;
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
-  border: 2px solid #ced4da; /* Thicker border as per image */
-  border-radius: .5rem; /* Larger border-radius to match the image */
+  border: 2px solid #ced4da; /* Thicker border */
+  border-radius: .5rem; /* Larger border-radius */
   margin-bottom: 1rem; /* Add margin to separate the inputs */
 }
 
@@ -102,7 +105,7 @@
 
 .login-image img {
   width: 100%; /* Adjust as needed */
-  max-width: 300px; /* Adjust as needed */
+  max-width: 400px; /* Adjust as needed */
 }
 
 /* Responsive adjustments for smaller devices */
@@ -114,5 +117,15 @@
 
   .login-image img {
     max-width: 100%; /* On mobile, allow the image to be as wide as the container */
+  }
+}
+
+@media (min-width: 768px) {
+  .login-page {
+    flex-direction: row; /* Stack content horizontally on larger screens */
+  }
+  
+  .login-container {
+    margin: 2rem; /* Increase margin */
   }
 }

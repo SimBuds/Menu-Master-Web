@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getMenuById, updateMenu, getAllRecipes } from '../services/Mutations';
+import '../assets/css/Menu.css';
 
 function Menu() {
   const [searchTermRecipes, setSearchTermRecipes] = useState('');
   const [searchTermOnMenu, setSearchTermOnMenu] = useState('');
-  const [previousMenuData, setPreviousMenuData] = useState(null); // To store previous menu state for undo functionality
+  const [previousMenuData, setPreviousMenuData] = useState(null);
   const queryClient = useQueryClient();
-  const menuId = '65f8ab5d89e6e77ac7fb1083'; // Use the actual menu ID
+  const menuId = '65f8ab5d89e6e77ac7fb1083';
 
-  // Fetch all recipes
   const { data: recipesData, isLoading: isLoadingRecipes, isError: isErrorRecipes } = useQuery('recipes', getAllRecipes);
-
-  // Fetch the current menu
   const { data: menuData, isLoading: isLoadingMenu, isError: isErrorMenu } = useQuery(['menu', menuId], () => getMenuById(menuId));
 
-  // Mutation to update the menu
   const updateMenuMutation = useMutation(updateMenu, {
     onSuccess: () => {
       queryClient.invalidateQueries(['menu', menuId]);
@@ -25,7 +22,6 @@ function Menu() {
     },
   });
 
-  // This function constructs the payload for updating the menu
   function constructMenuPayload(menuData, updatedItems) {
     if (!menuData.name || !menuData.restaurant_id || typeof menuData.food_profit !== 'number') {
       console.error('Menu data is missing required fields');
@@ -36,50 +32,59 @@ function Menu() {
       name: menuData.name,
       restaurant_id: menuData.restaurant_id,
       food_profit: menuData.food_profit,
-      items: updatedItems.map(item => ({
-        recipe_id: item.recipe_id,
-        price: item.price
-      })),
+      items: updatedItems,
     };
   }
-  
 
-  const handleToggleMenu = (recipeId) => {
-    // Save the current menu data before making changes
-    if (!previousMenuData) {
-      setPreviousMenuData(menuData?.data || []);
-    }
-  
-    if (!menuData?.data || !Array.isArray(menuData.data.items)) {
-      console.error('Invalid menu data', menuData);
+  const handleToggleMenu = async (recipeId, add) => {
+    // Ensure menuData.data is valid and has an items array
+    if (!menuData?.data) {
+      console.error('Menu data is not available');
       return;
     }
   
-    const updatedItems = menuData.data.items.some(item => item.recipe_id === recipeId)
-      ? menuData.data.items.filter(item => item.recipe_id !== recipeId) // Remove item
-      : [...menuData.data.items, { 
-          recipe_id: recipeId, 
-          price: recipesData.data.find(recipe => recipe._id === recipeId)?.price 
-        }]; // Add item
+    // Initialize items as an empty array if it's not an array
+    const items = Array.isArray(menuData.data.items) ? menuData.data.items : [];
   
-    // Make sure we have all necessary fields in the payload
-    if (!menuData.data.name || !menuData.data.restaurant_id || typeof menuData.data.food_profit !== 'number') {
-      console.error('Menu data is missing required fields');
-      return;
-    }
+    let updatedItems = [...items];
   
-    const updatePayload = constructMenuPayload(menuData.data, updatedItems);
-    if (updatePayload) {
-      console.log('Payload before sending update:', updatePayload);
-      updateMenuMutation.mutate({ menuId, menuData: updatePayload }, {
-        onSuccess: (data) => {
-          console.log('Response data after update:', data);
-        },
-        // Potentially you might also want to log or handle the error scenario
-        onError: (error) => {
-          console.error('Error after update:', error);
+    if (add) {
+      // Check if the recipe is already in the menu
+      const isItemExists = updatedItems.some(item => item.recipe_id === recipeId);
+      if (!isItemExists) {
+        // Find the recipe to add
+        const recipeToAdd = recipesData.data.find(recipe => recipe._id === recipeId);
+        if (recipeToAdd) {
+          updatedItems.push({
+            recipe_id: recipeId,
+            price: recipeToAdd.price // Use recipe's price
+          });
+        } else {
+          console.error('Recipe to add does not exist:', recipeToAdd);
         }
-      });  // This closing parenthesis was missing
+      }
+    } else {
+      // Remove the recipe if it exists in the menu
+      updatedItems = updatedItems.filter(item => item.recipe_id !== recipeId);
+    }
+  
+    // Console log for debugging
+    console.log('Updated items to be sent to the server:', updatedItems);
+  
+    // Construct the payload
+    const menuUpdatePayload = constructMenuPayload(menuData.data, updatedItems);
+  
+    // Console log for debugging
+    console.log('Payload being sent to updateMenu function:', menuUpdatePayload);
+  
+    // Update the menu using the constructed payload
+    if (menuUpdatePayload) {
+      try {
+        await updateMenuMutation.mutateAsync({ menuId, menuData: menuUpdatePayload });
+        queryClient.invalidateQueries(['menu', menuId]);
+      } catch (error) {
+        console.error('Error updating menu:', error);
+      }
     }
   };  
 
@@ -91,14 +96,12 @@ function Menu() {
   };
     
   const handleUndo = () => {
-    // Revert to the previous menu data
     if (previousMenuData) {
       updateMenuMutation.mutate({ menuId, menuData: previousMenuData });
-      setPreviousMenuData(null); // Reset the previous menu data
+      setPreviousMenuData(null);
     }
   };
 
-  // Check for loading or error state
   if (isLoadingRecipes || isLoadingMenu) {
     return <div>Loading...</div>;
   }
@@ -107,20 +110,17 @@ function Menu() {
     return <div>Error fetching data...</div>;
   }
 
-  // Merge the recipes and menu data to determine which recipes are on the menu
   const mergedRecipes = recipesData?.data.map(recipe => ({
     ...recipe,
     onMenu: menuData?.data?.items ? menuData.data.items.some(item => item.recipe_id === recipe._id) : false,
   })) || [];
 
-  // Filtered lists for UI
   const filteredRecipes = mergedRecipes.filter(recipe =>
-    recipe.name.toLowerCase().includes(searchTermRecipes.toLowerCase()) && !recipe.onMenu
+    recipe.name.toLowerCase().includes(searchTermRecipes.toLowerCase())
   );
 
-  const filteredOnMenu = mergedRecipes.filter(recipe =>
-    recipe.name.toLowerCase().includes(searchTermOnMenu.toLowerCase()) && recipe.onMenu
-  );
+  const onMenuRecipes = filteredRecipes.filter(recipe => recipe.onMenu && recipe.name.toLowerCase().includes(searchTermOnMenu.toLowerCase()));
+  const offMenuRecipes = filteredRecipes.filter(recipe => !recipe.onMenu && recipe.name.toLowerCase().includes(searchTermRecipes.toLowerCase()));
 
   return (
     <div className="container mt-3">
@@ -136,18 +136,12 @@ function Menu() {
             onChange={(e) => setSearchTermRecipes(e.target.value)}
           />
           <div className="list-group">
-            {filteredRecipes.map(recipe => (
+            {offMenuRecipes.map(recipe => (
               <div key={recipe._id} className="list-group-item d-flex justify-content-between align-items-center">
-                <div className="form-check">
-                  <input
-                    className="form-check-input me-1"
-                    type="checkbox"
-                    checked={recipe.onMenu}
-                    onChange={() => handleToggleMenu(recipe._id)}
-                  />
-                  {recipe.name}
-                </div>
-                <button className="btn btn-outline-primary btn-sm">Show recipe</button>
+                <img src={recipe.image} alt={recipe.name} className="recipe-image" />
+                <span>{recipe.name}</span>
+                <input type="checkbox" onChange={() => handleToggleMenu(recipe._id, true)} />
+                <span>{recipe.price ? recipe.price.toFixed(2) : 'N/A'}</span> {/* Display recipe's price */}
               </div>
             ))}
           </div>
@@ -162,18 +156,12 @@ function Menu() {
             onChange={(e) => setSearchTermOnMenu(e.target.value)}
           />
           <div className="list-group">
-            {filteredOnMenu.map(recipe => (
+            {onMenuRecipes.map(recipe => (
               <div key={recipe._id} className="list-group-item d-flex justify-content-between align-items-center">
-                <div className="form-check">
-                  <input
-                    className="form-check-input me-1"
-                    type="checkbox"
-                    checked={recipe.onMenu}
-                    onChange={() => handleToggleMenu(recipe._id)}
-                  />
-                  {recipe.name}
-                </div>
-                <button className="btn btn-outline-primary btn-sm">Show recipe</button>
+                <img src={recipe.image} alt={recipe.name} className="recipe-image" />
+                <span>{recipe.name}</span>
+                <input type="checkbox" checked onChange={() => handleToggleMenu(recipe._id, false)} />
+                <span>{recipe.price ? recipe.price.toFixed(2) : 'N/A'}</span> {/* Display recipe's price */}
               </div>
             ))}
           </div>

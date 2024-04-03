@@ -48,7 +48,7 @@ export async function getMenuById(menuId) {
     try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/menu/${menuId}`);
         const responseData = await response.json();
-        if (!response.ok) {
+        if (!response.ok || !Array.isArray(responseData.data)) {
             console.error('An error occurred while fetching the menu:', response.statusText);
             throw new Error('Failed to fetch menu');
         }
@@ -63,6 +63,9 @@ export async function getMenuById(menuId) {
 export async function updateMenu({ menuId, menuData }) {
     const url = `${process.env.REACT_APP_API_URL}/menu/${menuId}`;
     try {
+        if (!menuData) {
+            throw new Error('Menu data is missing');
+        }
         const response = await fetch(url, {
             method: 'PUT',
             headers: {
@@ -70,11 +73,18 @@ export async function updateMenu({ menuId, menuData }) {
             },
             body: JSON.stringify(menuData),
         });
-        const responseData = await response.json();
-        if (responseData.data === null) {
-            console.error('An error occurred while updating the menu: Data is null');
-            throw new Error(responseData.message || 'Failed to update menu: Data is null');
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Server returned an error: ${response.status} ${response.statusText} - ${errorText}`);
         }
+
+        const responseData = await response.json();
+
+        if (responseData.code !== 200 || responseData.data !== true) {
+            throw new Error('Failed to update menu: ' + (responseData.message || 'Unexpected response data'));
+        }
+
         return responseData;
     } catch (error) {
         console.error("An error occurred while updating the menu:", error);
@@ -187,11 +197,23 @@ export async function createInventory(inventoryData) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(inventoryData),
+        body: JSON.stringify({
+            ingredient_id: inventoryData.ingredient_id,
+            stock: inventoryData.stock
+        }),
     });
+
     const responseData = await response.json();
-    if (!response.ok || !responseData) {
-        throw new Error(`Failed to create inventory: HTTP status ${response.status}`);
+
+    if (!response.ok) {
+        const error = new Error(`Failed to create inventory: HTTP status ${response.status}`);
+        error.responseData = responseData;
+        throw error;
     }
-    return responseData;
+
+    if (!responseData || !responseData.data) {
+        throw new Error('Failed to create inventory: No response data');
+    }
+
+    return responseData.data;
 }

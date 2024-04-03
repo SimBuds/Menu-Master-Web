@@ -1,5 +1,17 @@
+/* RecentOrders.css */
+
+
+/* Use CSS variables for colors for easier maintenance */
+:root {
+  --delivered-green: #28a745;
+  --in-transit-orange: #ff7f00;
+  --ordered-red: #dc3545;
+  --border-color: #ddd;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
 .recent-orders {
-  max-width: 1200px; /* Set a max-width for larger screens */
+  max-width: 100%; /* Set a max-width for better scaling */
   margin: 0 auto; /* Center the orders on the page */
   padding: 20px; /* Add padding around the orders for spacing */
   background: #fff; /* Set a white background for the orders section */
