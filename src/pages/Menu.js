@@ -123,7 +123,7 @@ function Menu() {
   const offMenuRecipes = filteredRecipes.filter(recipe => !recipe.onMenu && recipe.name.toLowerCase().includes(searchTermRecipes.toLowerCase()));
 
   return (
-    <div className="container mt-3">
+    <div className="container-fluid mt-3"> {/* Adjusted to full width */}
       <h1 className="text-center mb-4">Menu</h1>
       <div className="row">
         <div className="col-md-6">

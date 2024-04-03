@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getAllRecipes, createRecipe } from '../services/Mutations';
 import RecipeCard from '../components/RecipeCard';
@@ -17,9 +17,9 @@ function RecipesPage() {
   });
   const queryClient = useQueryClient();
   const [isAddRecipeCardVisible, setIsAddRecipeCardVisible] = useState(false);
-  const [isRecipeCardVisible, setIsRecipeCardVisible] = useState(false);
-  const [selectedRecipe, setSelectedRecipe] = useState({});
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [filter, setFilter] = useState('All');
 
   const { data: recipes, isLoading, isError } = useQuery('recipes', getAllRecipes);
 
@@ -27,6 +27,7 @@ function RecipesPage() {
     onSuccess: () => {
       queryClient.invalidateQueries('recipes');
       setNewRecipe({ name: '', image_src: '', steps: [], ingredients: [], prep_time_min: 0, recipe_type: '', active: true });
+      setIsAddRecipeCardVisible(false);
     }
   });
 
@@ -34,28 +35,27 @@ function RecipesPage() {
     setSearchTerm(event.target.value);
   };
 
-  const filteredRecipes = recipes?.data?.filter((recipe) =>
-    recipe.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const handleOpenAddRecipeForm = () => {
-    setIsAddRecipeCardVisible(true);
+  const handleFilterChange = (type) => {
+    setFilter(type);
   };
 
-  const handleShowRecipeCard = (recipe) => {
-    if (recipe) {
-      setSelectedRecipe(recipe);
-      setIsRecipeCardVisible(true);
-    }
+  const filteredRecipes = useMemo(() => {
+    return recipes?.data?.filter((recipe) =>
+      (filter === 'All' || recipe.recipe_type === filter) &&
+      recipe.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [recipes, filter, searchTerm]);
+
+  const handleOpenAddRecipeCard = () => {
+    setIsAddRecipeCardVisible(true);
   };
 
   const handleCloseAddRecipeCard = () => {
     setIsAddRecipeCardVisible(false);
   };
 
-  const handleCloseRecipeCard = () => {
-    setIsRecipeCardVisible(false);
-    setSelectedRecipe({});
+  const handleShowRecipeCard = (recipe) => {
+    setSelectedRecipe(recipe);
   };
 
   const handleCreate = async (event) => {
@@ -81,14 +81,13 @@ function RecipesPage() {
   }
 
   const recipeElements = filteredRecipes?.map((recipe) => (
-    <div key={recipe._id} className="recipe-element">
+    <div key={recipe._id} className="recipe-element" onClick={() => handleShowRecipeCard(recipe)}>
       <div className="recipe-image-container">
         <img src={recipe.image_src} alt={recipe.name} className="recipe-image" />
         <div className="recipe-time">{recipe.prep_time_min} min</div>
       </div>
       <div className="recipe-info">
         <h3 className="recipe-title">{recipe.name}</h3>
-        <button onClick={() => handleShowRecipeCard(recipe)} className="recipe-show-button" aria-haspopup="dialog">View Recipe</button>
       </div>
     </div>
   ));
@@ -104,9 +103,20 @@ function RecipesPage() {
           onChange={handleSearchChange}
           className="search-bar"
         />
-        <button onClick={handleOpenAddRecipeForm} className="add-recipe-button">
+        <button onClick={handleOpenAddRecipeCard} className="add-recipe-button">
           Add Recipe +
         </button>
+        <div className="filter-buttons">
+          {['All', 'Breakfast', 'Dinner', 'Salads', 'Desserts', 'Soups'].map((type) => (
+            <button
+              key={type}
+              onClick={() => handleFilterChange(type)}
+              className={`filter-button ${filter === type ? 'active' : ''}`}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
       </header>
       {isAddRecipeCardVisible && (
         <AddRecipeCard
@@ -116,10 +126,10 @@ function RecipesPage() {
           handleChange={handleChange}
         />
       )}
-      {isRecipeCardVisible && (
+      {selectedRecipe && (
         <RecipeCard
           recipe={selectedRecipe}
-          onClose={handleCloseRecipeCard}
+          onClose={() => setSelectedRecipe(null)}
         />
       )}
       <div className="recipes-grid">

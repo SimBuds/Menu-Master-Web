@@ -130,7 +130,7 @@ function Inventory() {
   };
   
   return (
-    <div className="container mt-4">
+    <div className="container-fluid mt-4"> {/* Changed from "container" to "container-fluid" */}
       <h2>Inventory</h2>
       <div className="input-group mb-3">
         <input
@@ -187,8 +187,8 @@ function Inventory() {
                   <div className="form-group">
                     <label htmlFor="itemStock">Stock *</label>
                     <input
-                      type="text"  // Changed from type="number" to type="text"
-                      pattern="\d*"  // Ensure only numbers can be entered
+                      type="text"
+                      pattern="\d*"
                       className="form-control"
                       id="itemStock"
                       name="stock"
