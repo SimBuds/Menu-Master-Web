@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { getAllInventory, createInventory, updateInventory } from '../services/Mutations';
+import { getAllInventory, createInventory, updateInventory, getIngredientById } from '../services/Mutations';
 import '../assets/css/Inventory.css';
 
 function Inventory() {
   const queryClient = useQueryClient();
   const [inventoryItems, setInventoryItems] = useState([]);
+  const [ingredientNames, setIngredientNames] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
   const [newItem, setNewItem] = useState({
@@ -54,16 +55,38 @@ function Inventory() {
   };
 
   useEffect(() => {
-    if (!isLoading && inventoryData?.data) {
-      const formattedInventoryItems = inventoryData.data.map(item => ({
-        _id: item.data,
-        ingredient_id: item.ingredient_id,
-        stock: item.stock,
+    if (inventoryData?.data && Object.keys(ingredientNames).length > 0) {
+      // Now we wait until ingredient names are loaded before setting inventory items
+      const processedInventoryItems = inventoryData.data.map(item => ({
+        ...item,
+        ingredient_name: ingredientNames[item.ingredient_id] || 'Loading...',
       }));
-      setInventoryItems(formattedInventoryItems);
-      console.log('inventoryItems set:', formattedInventoryItems);
+      setInventoryItems(processedInventoryItems);
     }
-  }, [inventoryData, isLoading]);
+  }, [inventoryData, ingredientNames]);
+
+  useEffect(() => {
+    const fetchIngredientNames = async () => {
+      const names = {};
+      if (inventoryData?.data) {
+        for (const item of inventoryData.data) {
+          if (!names[item.ingredient_id]) {
+            const ingredient = await getIngredientById(item.ingredient_id);
+            if (ingredient && ingredient.code === 200 && ingredient.data) {
+              names[item.ingredient_id] = ingredient.data.name;
+            } else {
+              // Proper error handling, or set a placeholder
+              names[item.ingredient_id] = "Name not found";
+              console.error(`Ingredient not found for ID ${item.ingredient_id}`);
+            }
+          }
+        }
+        setIngredientNames(names);
+      }
+    };
+    
+    fetchIngredientNames();
+  }, [inventoryData]);  
 
   const filteredItems = useMemo(() => {
     if (!searchTerm) {
@@ -87,28 +110,30 @@ function Inventory() {
     }
   };  
 
+  // Inventory.js
   const handleAddItem = async () => {
-    console.log('Submitting item:', newItem);
-    if (newItem._id) {
-        console.log('Updating item with id:', newItem._id);
-        const payload = {
-            ingredient_id: newItem.ingredient_id,
-            stock: parseInt(newItem.stock, 10)
-        };
-
-        console.log('Updating item with payload:', payload);
-        try {
-          await updateMutation.mutateAsync(payload);
-        } catch (error) {
-          console.error('Failed to update item:', error);
-        }
-    } else {
-        console.log('Creating new item');
-        try {
-          await createMutation.mutateAsync(newItem);
-        } catch (error) {
-          console.error('Failed to create item:', error);
-        }
+    if (!newItem.ingredient_id || isNaN(newItem.stock)) {
+      // Set error state here
+      console.error('Invalid input');
+      return;
+    }
+  
+    const payload = {
+      ingredient_id: newItem.ingredient_id,
+      stock: parseInt(newItem.stock, 10)
+    };
+  
+    console.log('Creating new item with payload:', payload);
+  
+    try {
+      const response = await createMutation.mutateAsync(payload);
+      console.log('Item created successfully, response data:', response.data);
+      // Update local state or cache as necessary
+  
+      // Reset form or provide further user feedback
+    } catch (error) {
+      console.error('Failed to create item:', error);
+      // Provide user feedback based on the error
     }
   };
 
@@ -130,7 +155,7 @@ function Inventory() {
   };
   
   return (
-    <div className="container-fluid mt-4"> {/* Changed from "container" to "container-fluid" */}
+    <div className="container-fluid mt-4">
       <h2>Inventory</h2>
       <div className="input-group mb-3">
         <input
@@ -158,7 +183,7 @@ function Inventory() {
           ) : (
             filteredItems.map(item => (
               <tr key={item._id}>
-                <td>{item.ingredient_id}</td>
+                <td>{ingredientNames[item.ingredient_id] || item.ingredient_id}</td>
                 <td>{item.stock}</td>
                 <td>
                   <button className="btn btn-primary btn-sm" onClick={() => handleEdit(item._id)}>Edit</button>

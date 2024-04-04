@@ -42,6 +42,19 @@ export async function registerUser(userData) {
     return response.json();
 }
 
+// Restaurants Api and Mutator
+// Get All Restaurants
+export async function getAllRestaurants() {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/restaurant/`);
+    const responseData = await response.json();
+
+    if (!response.ok || !Array.isArray(responseData.data)) {
+        throw new Error(responseData.message || 'Failed to fetch restaurants: Data is not an array');
+    }
+
+    return responseData;
+}
+
 // Menu Api and Mutators
 // Get Menu by ID
 export async function getMenuById(menuId) {
@@ -192,28 +205,48 @@ export async function updateInventory(inventoryData) {
 
 // Create New Inventory
 export async function createInventory(inventoryData) {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/inventory`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            ingredient_id: inventoryData.ingredient_id,
-            stock: inventoryData.stock
-        }),
-    });
+    const url = `${process.env.REACT_APP_API_URL}/inventory`;
 
-    const responseData = await response.json();
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(inventoryData),
+        });
 
-    if (!response.ok) {
-        const error = new Error(`Failed to create inventory: HTTP status ${response.status}`);
-        error.responseData = responseData;
+        if (!response.ok) {
+            // If the server responds with a status code that is not in the 2xx range
+            const errorResponse = await response.json();
+            console.error(`Error ${response.status}: `, errorResponse);
+            throw new Error(`Failed to create inventory: HTTP status ${response.status}`);
+        }
+
+        // If the server response is ok, parse and return the response as JSON
+        const jsonResponse = await response.json();
+        console.log('Inventory item created:', jsonResponse.data);
+        return jsonResponse;
+    } catch (error) {
+        console.error('Error during inventory creation:', error);
         throw error;
     }
+}
 
-    if (!responseData || !responseData.data) {
-        throw new Error('Failed to create inventory: No response data');
+// In Mutations.js
+export async function getIngredientById(ingredientId) {
+    const restaurantId = "65f8954489e6e77ac7fb1027"; // The static restaurant ID
+    const url = `${process.env.REACT_APP_API_URL}/ingredient/${restaurantId}?id=${ingredientId}`;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        // Handle non-2xx responses here
+        console.error(`Network response was not ok (${response.status})`);
+        return null; // Return null or appropriate error handling
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error in getIngredientById:', error);
+      return null; // Return null or appropriate error handling
     }
-
-    return responseData.data;
 }

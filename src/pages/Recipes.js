@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getAllRecipes, createRecipe } from '../services/Mutations';
 import RecipeCard from '../components/RecipeCard';
@@ -20,15 +20,33 @@ function RecipesPage() {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('All');
+  const [isCreating, setIsCreating] = useState(false);
 
-  const { data: recipes, isLoading, isError } = useQuery('recipes', getAllRecipes);
+  const { data: recipes, isLoading, isError, error } = useQuery('recipes', getAllRecipes);
 
   const createMutation = useMutation(createRecipe, {
-    onSuccess: () => {
+    onMutate: async (newData) => {
+      setIsCreating(true);
+      await queryClient.cancelQueries('recipes');
+      const previousRecipes = queryClient.getQueryData('recipes');
+      queryClient.setQueryData('recipes', (old) => ({
+        ...old,
+        data: [...old.data, { ...newData, _id: 'temp-id' }],
+      }));
+      return { previousRecipes };
+    },
+    onError: (err, newRecipe, context) => {
+      queryClient.setQueryData('recipes', context.previousRecipes);
+      console.error('Error creating recipe', err);
+    },
+    onSettled: () => {
       queryClient.invalidateQueries('recipes');
+      setIsCreating(false);
+    },
+    onSuccess: () => {
       setNewRecipe({ name: '', image_src: '', steps: [], ingredients: [], prep_time_min: 0, recipe_type: '', active: true });
       setIsAddRecipeCardVisible(false);
-    }
+    },
   });
 
   const handleSearchChange = (event) => {
@@ -60,11 +78,7 @@ function RecipesPage() {
 
   const handleCreate = async (event) => {
     event.preventDefault();
-    try {
-      await createMutation.mutateAsync(newRecipe);
-    } catch (error) {
-      console.error('Error creating recipe', error);
-    }
+    createMutation.mutate(newRecipe);
   };
 
   const handleChange = (event) => {
@@ -72,16 +86,22 @@ function RecipesPage() {
     setNewRecipe({ ...newRecipe, [name]: value });
   };
 
+  useEffect(() => {
+    if (isError) {
+      console.error('Error fetching recipes:', error);
+    }
+  }, [isError, error]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   if (isError) {
-    return <div>Error fetching recipes: Kind: missing field `product_yield`, labels: {}</div>;
+    return <div>Error fetching recipes. Please try again later.</div>;
   }
 
   const recipeElements = filteredRecipes?.map((recipe) => (
-    <div key={recipe._id} className="recipe-element" onClick={() => handleShowRecipeCard(recipe)}>
+    <div key={recipe._id} className="recipe-element" onClick={() => handleShowRecipeCard(recipe)} tabIndex={0}>
       <div className="recipe-image-container">
         <img src={recipe.image_src} alt={recipe.name} className="recipe-image" />
         <div className="recipe-time">{recipe.prep_time_min} min</div>
@@ -103,8 +123,8 @@ function RecipesPage() {
           onChange={handleSearchChange}
           className="search-bar"
         />
-        <button onClick={handleOpenAddRecipeCard} className="add-recipe-button">
-          Add Recipe +
+        <button onClick={handleOpenAddRecipeCard} className="add-recipe-button" disabled={isCreating}>
+          {isCreating ? 'Adding...' : 'Add Recipe +'}
         </button>
         <div className="filter-buttons">
           {['All', 'Breakfast', 'Dinner', 'Salads', 'Desserts', 'Soups'].map((type) => (
@@ -112,6 +132,7 @@ function RecipesPage() {
               key={type}
               onClick={() => handleFilterChange(type)}
               className={`filter-button ${filter === type ? 'active' : ''}`}
+              tabIndex={0}
             >
               {type}
             </button>
