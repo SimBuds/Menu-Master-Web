@@ -1,5 +1,4 @@
-/* RecentOrders.css */
-
+/* Invoices.css */
 
 /* Use CSS variables for colors for easier maintenance */
 :root {
@@ -13,9 +12,9 @@
 .recent-orders {
   max-width: 100%; /* Set a max-width for better scaling */
   margin: 0 auto; /* Center the orders on the page */
-  padding: 20px; /* Add padding around the orders for spacing */
+  padding: 40px 20px 20px 20px; /* Increase top padding for more space above the search bar */
   background: #fff; /* Set a white background for the orders section */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+  box-shadow: 0 2px 4px var(--shadow-color); /* Add a subtle shadow for depth */
   border-radius: 8px; /* Round the corners of the orders section */
 }
 
@@ -35,6 +34,7 @@
 }
 
 .table {
+  width: 100%; /* Ensure table occupies the full width */
   margin-bottom: 0; /* Remove margin below the table for tighter spacing */
 }
 
@@ -47,6 +47,14 @@
 /* Style the table cells */
 .table tbody td {
   vertical-align: middle; /* Align the content of table cells to the middle */
+}
+
+/* Align status indicators and buttons to the center */
+.table tbody td.status, 
+.table tbody td .btn {
+  display: block; /* Change display to block to allow margin auto to work */
+  margin-left: auto; /* Auto margin on left to center align */
+  margin-right: auto; /* Auto margin on right to center align */
 }
 
 /* Style the status column */

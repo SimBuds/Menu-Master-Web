@@ -7,9 +7,9 @@ import '../assets/css/Dashboard.css';
 
 function Dashboard() {
   const cards = [
-    { title: 'Monthly Expenses', value: '$6,452', percentage: 5.39, increase: true },
-    { title: 'Invoiced this month', value: '$42,502', percentage: 0.65, decrease: true },
-    { title: 'Food Cost', value: '18%', percentage: 0.12, increase: true },
+    { title: 'Monthly Invoices', value: '$42,502', percentage: 22.39, increase: true },
+    { title: 'Weekly Sales', value: '$12,502', percentage: 5.65, decrease: true },
+    { title: 'Food Cost', value: '18%', percentage: 1.99, increase: true },
   ];
 
   const highestPercentageCard = cards.reduce((max, card) => card.percentage > max.percentage ? card : max, cards[0]);

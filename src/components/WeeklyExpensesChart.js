@@ -41,7 +41,7 @@ const WeeklyExpensesChart = ({ data }) => {
   };
 
   return (
-    <div style={{ height: '300px', width: '100%' }}> {/* Inline styling added to match the image */}
+    <div style={{ height: '500px', width: '100%' }}> {/* Increased height to 500px */}
       <Bar data={chartData} options={options} />
     </div>
   );

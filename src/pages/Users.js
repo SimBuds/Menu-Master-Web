@@ -41,11 +41,7 @@ const Users = () => {
 
   // Filter users based on the search query
   const filteredUsers = users.filter(user =>
-    user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.user_type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.first_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.last_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (user.active ? 'active' : 'inactive').includes(searchQuery.toLowerCase())
+    user.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const toggleAddUserModal = () => setShowAddUserModal(!showAddUserModal);

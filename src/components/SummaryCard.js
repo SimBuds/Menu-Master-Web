@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { BsArrowUp, BsArrowDown } from 'react-icons/bs';
-import '../assets/css/SummaryCard.css'; // Ensure the path is correct
+import '../assets/css/SummaryCard.css';
 
 function SummaryCard({ title, value, percentage, increase, date, highlight }) {
   return (

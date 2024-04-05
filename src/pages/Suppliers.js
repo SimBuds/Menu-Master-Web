@@ -1,42 +1,33 @@
 import React from 'react';
 import SummaryCard from '../components/SummaryCard';
-import RecentOrders from '../components/RecentOrders';
 import WeeklyExpensesChart from '../components/WeeklyExpensesChart';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import '../assets/css/Suppliers.css';
 
 const Suppliers = () => {
-  // Assuming you have an API or some data source to get these values
-  // Here they are hard-coded for demonstration purposes
   const monthlyExpenses = {
     title: 'Monthly Expenses',
-    value: '$6,452',
+    value: '$48,502',
     percentage: 5.39,
-    increase: true // This indicates the percentage increased, so you might display this with a green arrow or similar indicator
+    increase: true 
   };
 
   const invoicedThisMonth = {
     title: 'Invoiced this month',
-    value: '$42,502',
+    value: '$32,502',
     percentage: 0.65,
-    decrease: true // This indicates the percentage decreased, you might display this with a red arrow or similar indicator
+    decrease: true
   };
 
   const invoicesPaid = {
     title: 'Invoices Paid',
-    value: '$16,201',
-    percentage: 2.29,
+    value: '$26,201',
+    percentage: 55.09,
     increase: true
   };
 
-  // Recent orders data, could also be fetched from an API
-  const recentOrdersData = [
-    // Add your recent orders here
-  ];
-
-  // Weekly expenses chart data, now with filler data
   const weeklyExpensesChartData = {
     labels: ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
-    values: [35000, 31000, 42500, 37000, 26000, 28500, 39000]
+    values: [1000, 3000, 4500, 7000, 7600, 6500, 3000]
   };
 
   return (
@@ -73,13 +64,9 @@ const Suppliers = () => {
           <WeeklyExpensesChart data={weeklyExpensesChartData} />
         </div>
       </div>
-      <div className="row">
-        <div className="col-12">
-          <RecentOrders data={recentOrdersData} />
-        </div>
-      </div>
     </div>
   );
 };
 
 export default Suppliers;
+

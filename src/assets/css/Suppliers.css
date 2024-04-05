@@ -1,1 +1,47 @@
+/* src/assets/css/Suppliers.css */
+
+/* Base styles for the dashboard elements */
+.container-fluid {
+    padding: 20px;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .mb-4, .mb-3 {
+    margin-bottom: 1.5rem; /* Adjust the margin-bottom as needed */
+  }
+  
+  /* Cards */
+  .col-md-4 {
+    padding: 0 15px; /* Add padding to maintain spacing between cards */
+  }
+  
+  /* Chart */
+  .col-12 {
+    padding: 0 15px; /* Add padding to maintain spacing around the chart */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1200px) {
+    .col-md-4 {
+      flex-basis: 100%;
+      max-width: 100%;
+      box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .mb-3 {
+      margin-bottom: 1rem; /* Reduce margin-bottom on smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container-fluid {
+      padding: 10px;
+    }
+  }
+
 

@@ -14,7 +14,7 @@ function Inventory() {
     stock: ''
   });
 
-  const { data: inventoryData, isLoading } = useQuery('inventory', getAllInventory);
+  const { data: inventoryData } = useQuery('inventory', getAllInventory);
 
   const createMutation = useMutation(createInventory, {
     onMutate: (newItem) => {
@@ -93,9 +93,9 @@ function Inventory() {
       return inventoryItems;
     }
     return inventoryItems.filter(item =>
-      item.ingredient_id?.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      ingredientNames[item.ingredient_id]?.toLowerCase().includes(searchTerm.toLowerCase())
     );
-  }, [inventoryItems, searchTerm]);
+  }, [inventoryItems, searchTerm, ingredientNames]);
 
   const handleEdit = (_id) => {
     const itemToEdit = inventoryItems.find(item => item._id === _id);
@@ -110,10 +110,8 @@ function Inventory() {
     }
   };  
 
-  // Inventory.js
   const handleAddItem = async () => {
     if (!newItem.ingredient_id || isNaN(newItem.stock)) {
-      // Set error state here
       console.error('Invalid input');
       return;
     }
@@ -128,12 +126,31 @@ function Inventory() {
     try {
       const response = await createMutation.mutateAsync(payload);
       console.log('Item created successfully, response data:', response.data);
-      // Update local state or cache as necessary
-  
-      // Reset form or provide further user feedback
+      resetFields();
     } catch (error) {
       console.error('Failed to create item:', error);
-      // Provide user feedback based on the error
+    }
+  };
+
+  const handleUpdateItem = async () => {
+    if (!newItem.ingredient_id || isNaN(newItem.stock)) {
+      console.error('Invalid input');
+      return;
+    }
+  
+    const payload = {
+      ingredient_id: newItem.ingredient_id,
+      stock: parseInt(newItem.stock, 10)
+    };
+  
+    console.log('Updating item with payload:', payload);
+  
+    try {
+      const response = await updateMutation.mutateAsync(payload);
+      console.log('Item updated successfully, response data:', response.data);
+      resetFields();
+    } catch (error) {
+      console.error('Failed to update item:', error);
     }
   };
 
@@ -147,7 +164,11 @@ function Inventory() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    handleAddItem();
+    if (newItem._id) {
+      handleUpdateItem();
+    } else {
+      handleAddItem();
+    }
   };
 
   const handleSearchChange = (e) => {
@@ -237,7 +258,7 @@ function Inventory() {
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" onClick={() => setShowAddForm(false)}>Cancel</button>
-                    <button type="submit" className="btn btn-primary">Save</button>
+                    <button type="submit" className="btn btn-primary">{newItem._id ? 'Update' : 'Save'}</button>
                   </div>
                 </form>
               </div>
