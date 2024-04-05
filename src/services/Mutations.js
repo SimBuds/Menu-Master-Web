@@ -56,12 +56,13 @@ export async function getAllRestaurants() {
 }
 
 // Menu Api and Mutators
-// Get Menu by ID
-export async function getMenuById(menuId) {
+// Get Menu
+export async function getMenu() {
+    const menuId = "65f8954489e6e77ac7fb1027";
     try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/menu/${menuId}`);
         const responseData = await response.json();
-        if (!response.ok || !Array.isArray(responseData.data)) {
+        if (!response.ok || !Array.isArray(responseData.data) || responseData.data.length === 0) {
             console.error('An error occurred while fetching the menu:', response.statusText);
             throw new Error('Failed to fetch menu');
         }
@@ -73,14 +74,15 @@ export async function getMenuById(menuId) {
 }
 
 // Update Menu
-export async function updateMenu({ menuId, menuData }) {
+export async function updateMenu(menuData) {
+    const menuId = "65f8ab5d89e6e77ac7fb1083";
     const url = `${process.env.REACT_APP_API_URL}/menu/${menuId}`;
     try {
-        if (!menuData) {
-            throw new Error('Menu data is missing');
+        if (!menuData || !Array.isArray(menuData.items) || menuData.items.length === 0) {
+            throw new Error('Menu data is missing or invalid');
         }
         const response = await fetch(url, {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -94,7 +96,7 @@ export async function updateMenu({ menuId, menuData }) {
 
         const responseData = await response.json();
 
-        if (responseData.code !== 200 || responseData.data !== true) {
+        if (responseData.code !== 200 || !Array.isArray(responseData.data) || responseData.data.length === 0) {
             throw new Error('Failed to update menu: ' + (responseData.message || 'Unexpected response data'));
         }
 

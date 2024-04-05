@@ -12,7 +12,7 @@ function Sidebar({ onLogout }) {
       <div className="sidebar-brand p-3 mb-3">MENU MASTER</div>
       <div className="menu-section mb-3">
         <p className="menu-section-title px-3 mb-2">MAIN MENU</p>
-        <NavLink to="/" exact className="menu-item p-3" activeClassName="active">
+        <NavLink to="/" className="menu-item p-3" activeClassName="active">
           <FontAwesomeIcon icon={faTachometerAlt} className="menu-icon" /> Dashboard
         </NavLink>
         <NavLink to="/inventory" className="menu-item" activeClassName="active">
@@ -30,7 +30,7 @@ function Sidebar({ onLogout }) {
         <NavLink to="/suppliers" className="menu-item" activeClassName="active">
           <FontAwesomeIcon icon={faTruck} className="menu-icon" /> Suppliers
         </NavLink>
-        <NavLink to="/invoices" className="menu-item" activeClassName="active">
+        <NavLink to="/invoices" className="menu-item" activeClassName="active"> 
           <FontAwesomeIcon icon={faFileInvoice} className="menu-icon" /> Invoices
         </NavLink>
       </div>

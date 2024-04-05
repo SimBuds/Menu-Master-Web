@@ -40,14 +40,14 @@ function Dashboard() {
       <div className="row justify-content-center mt-4">
         {/* Monthly Sales */}
         <div className="col-md-4">
-        <MonthlySpend title="Monthly Sales" date="April, 2024" value="$42,502" percentage="5" increase />
+        <MonthlySpend title="Monthly Sales" date="April, 2024" percentage="5" increase />
         </div>
         {/* Monthly Spend */}
         <div className="col-md-4">
-          <MonthlySpend title="Monthly Spend" date="April 1 - 15, 2024" percentage={55} />
+          <MonthlySpend title="Monthly Spend" date="March 1 - 31, 2024" percentage={60} />
         </div>
         <div className="col-md-4">
-          <MonthlySpend title="Monthly Outage" date="April 1 - 15, 2024" percentage={2} />
+          <MonthlySpend title="Monthly Outage" date="March 1 - 31, 2024" percentage={3} />
         </div>
       </div>
     </div>
