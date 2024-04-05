@@ -31,7 +31,7 @@ function RecipesPage() {
       steps: ['Step 1: Mix ingredients', 'Step 2: Bake', 'Step 3: Cool down', 'Step 4: Serve with caramelized sugar on top'],
       ingredients: [],
       prep_time_min: 10,
-      recipe_type: '',
+      recipe_type: 'Desserts',
       active: true
     },
     {
@@ -41,7 +41,7 @@ function RecipesPage() {
       steps: ['Step 1: Roast bones', 'Step 2: Add vegetables', 'Step 3: Simmer', 'Step 4: Strain and reduce'],
       ingredients: [],
       prep_time_min: 20,
-      recipe_type: '',
+      recipe_type: 'All',
       active: true
     },
     {
@@ -51,7 +51,7 @@ function RecipesPage() {
       steps: ['Step 1: Boil potatoes', 'Step 2: Drain water', 'Step 3: Mash potatoes', 'Step 4: Add butter and milk'],
       ingredients: [],
       prep_time_min: 62,
-      recipe_type: '',
+      recipe_type: 'All',
       active: true
     },
     {
@@ -61,7 +61,7 @@ function RecipesPage() {
       steps: ['Step 1: Mix mascarpone', 'Step 2: Dip ladyfingers in coffee', 'Step 3: Layer ladyfingers and mascarpone', 'Step 4: Chill and serve'],
       ingredients: [],
       prep_time_min: 60,
-      recipe_type: '',
+      recipe_type: 'Desserts',
       active: true
     },
     {
@@ -71,7 +71,7 @@ function RecipesPage() {
       steps: ['Step 1: Sear beef', 'Step 2: Cook onions and mushrooms', 'Step 3: Add cream', 'Step 4: Serve with rice'],
       ingredients: [],
       prep_time_min: 40,
-      recipe_type: '',
+      recipe_type: 'Dinner',
       active: true
     },
     {
@@ -81,7 +81,7 @@ function RecipesPage() {
       steps: ['Step 1: Sautee mushrooms', 'Step 2: Cook rice with broth', 'Step 3: Add mushrooms', 'Step 4: Serve with parmesan'],
       ingredients: [],
       prep_time_min: 20,
-      recipe_type: '',
+      recipe_type: 'Dinner',
       active: true
     },
     {
@@ -91,7 +91,7 @@ function RecipesPage() {
       steps: ['Step 1: Bread chicken', 'Step 2: Fry chicken', 'Step 3: Top with sauce and cheese', 'Step 4: Bake until cheese is melted'],
       ingredients: [],
       prep_time_min: 30,
-      recipe_type: '',
+      recipe_type: 'Dinner',
       active: true
     }
   ]);
