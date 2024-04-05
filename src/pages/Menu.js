@@ -8,13 +8,9 @@ import Modal from 'react-bootstrap/Modal';
 // Mock data for recipes
 const recipesData = [
   { id: 1, name: 'Ceviche', onMenu: false, image: require('../assets/images/ceviche.jpg'), steps: ['Step 1: Cut the fish', 'Step 2: Mix with lime', 'Step 3: Add onions', 'Step 4: Serve cold'] },
-  { id: 2, name: 'Creme Brulee', onMenu: false, image: require('../assets/images/creme.jpg'), steps: ['Step 1: Mix ingredients', 'Step 2: Bake', 'Step 3: Cool down', 'Step 4: Serve with caramelized sugar on top'] },
-  { id: 3, name: 'Demi', onMenu: false, image: require('../assets/images/demi.jpg'), steps: ['Step 1: Roast bones', 'Step 2: Add vegetables', 'Step 3: Simmer', 'Step 4: Strain and reduce'] },
-  { id: 4, name: 'Mashed Potatoes', onMenu: false, image: require('../assets/images/mashed.jpg'), steps: ['Step 1: Boil potatoes', 'Step 2: Drain water', 'Step 3: Mash potatoes', 'Step 4: Add butter and milk'] },
-  { id: 5, name: 'Tiramisu', onMenu: false, image: require('../assets/images/tiramisu.jpg'), steps: ['Step 1: Mix mascarpone', 'Step 2: Dip ladyfingers in coffee', 'Step 3: Layer ladyfingers and mascarpone', 'Step 4: Chill and serve'] },
-  { id: 6, name: 'Beef Stroganoff', onMenu: false, image: require('../assets/images/beef-stroganoff.jpg'), steps: ['Step 1: Sear beef', 'Step 2: Cook onions and mushrooms', 'Step 3: Add cream', 'Step 4: Serve with rice'] },
-  { id: 7, name: 'Mushroom Risotto', onMenu: false, image: require('../assets/images/mushroom-risotto.jpg'), steps: ['Step 1: Sautee mushrooms', 'Step 2: Cook rice with broth', 'Step 3: Add mushrooms', 'Step 4: Serve with parmesan'] },
-  { id: 8, name: 'Chicken Parmesan', onMenu: true, image: require('../assets/images/chicken-parmesan.jpg'), steps: ['Step 1: Bread chicken', 'Step 2: Fry chicken', 'Step 3: Top with sauce and cheese', 'Step 4: Bake until cheese is melted'] },
+  { id: 2, name: 'Pico', onMenu: false, image: require('../assets/images/creme.jpg'), steps: ['Step 1: Mix ingredients', 'Step 2: Bake', 'Step 3: Cool down', 'Step 4: Serve with caramelized sugar on top'] },
+  { id: 3, name: 'Lomo Saltado', onMenu: false, image: require('../assets/images/demi.jpg'), steps: ['Step 1: Roast bones', 'Step 2: Add vegetables', 'Step 3: Simmer', 'Step 4: Strain and reduce'] },
+  { id: 4, name: 'Huancaína', onMenu: false, image: require('../assets/images/mashed.jpg'), steps: ['Step 1: Boil potatoes', 'Step 2: Drain water', 'Step 3: Mash potatoes', 'Step 4: Add butter and milk'] },
 ];
 
 function Menu() {

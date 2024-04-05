@@ -1,10 +1,35 @@
 import React from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { createRecipe } from '../services/Mutations';
 import '../assets/css/AddRecipeCard.css';
 
 function AddRecipeCard({ onClose, onSave, newRecipe, handleChange, handleIngredientChange }) {
-  const handleSave = (event) => {
+  const queryClient = useQueryClient();
+  const addMutation = useMutation(createRecipe, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('recipes');
+      onClose();
+    }
+  });
+
+  const handleSave = async (event) => {
     event.preventDefault();
-    onSave(newRecipe);
+    try {
+      const payload = {
+        ...newRecipe,
+        ingredients: newRecipe.ingredients.map(ingredient => ({
+          ingredient_id: ingredient.ingredient_id,
+          measure_unit: ingredient.measure_unit,
+          quantity: ingredient.quantity,
+          cost: ingredient.cost,
+          product_yield: ingredient.product_yield || 0 // Add a default value for product_yield
+        }))
+      };
+      await addMutation.mutateAsync(payload);
+      onSave();
+    } catch (error) {
+      console.error('Error adding recipe', error);
+    }
   };
 
   return (

@@ -252,3 +252,22 @@ export async function getIngredientById(ingredientId) {
       return null; // Return null or appropriate error handling
     }
 }
+
+// Preplist API and Mutators
+export async function getPrepList() {
+    const url = `${process.env.REACT_APP_API_URL}/preplist`;
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            console.error(`Network response was not ok (${response.status})`);
+            return null;
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error in getPrepList:', error);
+        return null;
+    }
+}

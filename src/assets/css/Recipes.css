@@ -1,26 +1,33 @@
 
-  .recipe-card {
+  .recipe-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Spacing between cards */
+    justify-content: center;
+    padding: 20px; /* Padding around the grid */
+  }
+
+  .recipe-element {
+    flex: 0 1 calc(33.333% - 40px); /* Three items per row with spacing */
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Softened shadow for a more subtle effect */
+    border-radius: 10px; /* Rounded corners to match other design elements */
     overflow: hidden;
-    background: #f9f9f9;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 100%;
-    max-width: 340px;
+    background: #f9f9f9; /* Light grey background for a softer look */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for transform and box-shadow */
   }
 
-  .recipe-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  .recipe-element:hover {
+    transform: translateY(-5px); /* Increased the hover effect distance for more noticeable interaction */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Softened shadow on hover for a more subtle effect */
   }
 
   .recipe-image-container {
     position: relative;
-    height: 200px;
+    width: 100%; /* Ensure the image container fills the card */
+    height: 200px; /* Increased height for a better image display */
     overflow: hidden;
   }
   
@@ -34,37 +41,41 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.7); /* Darkened the background for better contrast and readability */
     color: white;
-    padding: 5px 10px;
-    border-radius: 10px;
-    font-size: 0.9em;
+    padding: 5px 10px; /* Padding for a snug fit */
+    border-radius: 10px; /* Border radius to match other elements */
+    font-size: 0.9em; /* Slightly increased font size for better readability */
     font-weight: bold;
   }
   
   .recipe-info {
-    padding: 15px;
-    text-align: center;
+    padding: 15px; /* Increased padding for a more spacious layout */
+    text-align: center; /* Centered text alignment */
+    width: 100%; /* Ensure the info section fills the card */
   }
   
   .recipe-title {
-    margin: 15px 0;
-    font-size: 1.1em;
+    margin: 15px 0; /* Increased margin for better spacing */
+    font-size: 1.1em; /* Slightly increased font size for better readability */
     font-weight: bold;
-    color: #333;
+    color: #333; /* Dark grey color for the text */
   }
   
   .recipe-show-button {
-    background-color: #e67e22;
+    background-color: #e67e22; /* Orange color for buttons */
     color: white;
     border: none;
-    padding: 10px 18px;
-    border-radius: 25px;
+    padding: 10px 18px; /* Slightly increased padding for a better touch target */
+    border-radius: 25px; /* More pronounced border radius for a more pill-shaped button */
     cursor: pointer;
-    font-size: 0.85em;
+    font-size: 0.85em; /* Slightly increased font size for better readability */
     outline: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Softened shadow for consistency with other elements */
+    margin-top: 15px; /* Increased margin-top for better spacing */
+    text-transform: uppercase; /* Uppercase text for button labels */
+    width: 80%; /* Button width relative to card size */
+    align-self: center; /* Center button in the flex container */
   }
 
   .recipe-card-popup {
@@ -76,20 +87,25 @@
   }
   
   @media (max-width: 600px) {
-    .recipe-card {
-      margin-bottom: 30px;
+    .recipe-container {
+      justify-content: space-around;
+    }
+
+    .recipe-element {
+      flex: 0 1 calc(50% - 20px); /* Two items per row with spacing on mobile */
+      margin-bottom: 20px; /* Increased margin-bottom for better spacing between elements on mobile */
     }
 
     .recipe-image-container {
-      height: 220px;
+      height: 220px; /* Slightly increased height for a better layout on mobile */
     }
 
     .recipe-title {
-      font-size: 1.3em;
+      font-size: 1.3em; /* Further increased font size for better readability on mobile */
     }
 
     .recipe-show-button {
-      padding: 12px 24px;
-      font-size: 1em;
+      padding: 12px 24px; /* Increased padding to be more touch-friendly on mobile */
+      font-size: 1em; /* Increased font size for better readability on mobile */
     }
   }
